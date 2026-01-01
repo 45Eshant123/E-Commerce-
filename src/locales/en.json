@@ -1,0 +1,342 @@
+{
+  "app": {
+    "name": "ShopHub"
+  },
+  "home": {
+    "title": "ShopHub - Premium Products at Great Prices",
+    "description": "Shop the latest trends in electronics, fashion, and home goods. Free shipping on orders over $50.",
+    "ourProducts": "Our Products"
+  },
+  "hero": {
+    "title": "Discover the Best Deals in Electronics, Fashion & More!",
+    "subtitle": "Shop your favorite products at unbeatable prices.",
+    "shopNow": "Shop Now"
+  },
+  "login": {
+    "title": "Login - ShopHub",
+    "description": "Sign in to your ShopHub account",
+    "welcomeBack": "Welcome Back",
+    "signInDescription": "Sign in to your ShopHub account"
+  },
+  "register": {
+    "title": "Register - ShopHub",
+    "description": "Create your ShopHub account",
+    "createAccount": "Create Account",
+    "joinDescription": "Join ShopHub and start shopping"
+  },
+  "cart": {
+    "title": "Shopping Cart - ShopHub",
+    "description": "Review your shopping cart and proceed to checkout"
+  },
+  "checkout": {
+    "title": "Checkout - ShopHub",
+    "description": "Complete your purchase securely"
+  },
+  "order": {
+    "successTitle": "Order Successful - ShopHub",
+    "successDescription": "Your order has been placed successfully",
+    "thankYou": "Thank you for shopping with ShopHub. Your order is being processed.",
+    "confirmedTitle": "Order Confirmed - ShopHub",
+    "confirmedDescription": "Your order has been successfully placed. Track your delivery and manage your purchase.",
+    "failedTitle": "Order Failed - ShopHub",
+    "failedDescription": "There was an issue processing your order",
+    "trackingTitle": "Order Tracking - ShopHub",
+    "trackingDescription": "Track your ShopHub order in real-time. Enter your order ID and email to see current status and delivery updates."
+  },
+  "payment": {
+    "successTitle": "Payment Successful - ShopHub",
+    "successDescription": "Your payment has been processed successfully",
+    "failedTitle": "Payment Failed - ShopHub",
+    "failedDescription": "Payment processing failed. Please try again or contact support."
+  },
+  "profile": {
+    "title": "My Profile - ShopHub",
+    "description": "Manage your account, view orders, and update your profile"
+  },
+  "wishlist": {
+    "title": "My Wishlist - ShopHub",
+    "description": "View and manage your saved products"
+  },
+  "compare": {
+    "title": "Compare Products - ShopHub",
+    "description": "Compare products side by side to make the best choice"
+  },
+  "company": {
+    "title": "Company - ShopHub",
+    "description": "Learn about ShopHub's mission, values, careers, and commitment to sustainability. Join our team and discover our story."
+  },
+  "careers": {
+    "title": "Careers - ShopHub",
+    "description": "Join the ShopHub team and be part of shaping the future of e-commerce. Explore career opportunities and our company culture.",
+    "whyJoin": "Why Join ShopHub?"
+  },
+  "contact": {
+    "title": "Contact Us - ShopHub",
+    "description": "Get in touch with ShopHub customer support. We're here to help with any questions or concerns."
+  },
+  "customerService": {
+    "title": "Customer Service - ShopHub",
+    "description": "Get help with orders, returns, shipping, and more. We're here to help you 24/7."
+  },
+  "faq": {
+    "title": "FAQ - ShopHub",
+    "description": "Frequently asked questions about shipping, returns, payments, and more"
+  },
+  "helpCenter": {
+    "title": "Help Center - ShopHub",
+    "description": "Find answers to frequently asked questions about orders, shipping, returns, and more. Get help with your ShopHub experience."
+  },
+  "shipping": {
+    "title": "Shipping & Delivery - ShopHub",
+    "description": "Learn about our shipping policies, delivery options, and international shipping services."
+  },
+  "returns": {
+    "title": "Returns & Exchanges - ShopHub",
+    "description": "Easy returns, fast refunds, and simple exchanges. Return items within 14 days for a full refund or exchange."
+  },
+  "returnPolicy": {
+    "title": "Return Policy - ShopHub",
+    "description": "Learn about our return policy, eligibility requirements, and conditions for returning items."
+  },
+  "exchangePolicy": {
+    "title": "Exchange Policy - ShopHub",
+    "description": "Learn about our exchange policy for sizes, colors, and products. Exchange items within 14 days of delivery."
+  },
+  "howToReturn": {
+    "title": "How to Return - ShopHub",
+    "description": "Step-by-step guide to return items. Learn how to initiate returns, package items, and schedule pickup."
+  },
+  "refundProcess": {
+    "title": "Refund Process - ShopHub",
+    "description": "Learn about our refund processing timeline and methods. Refunds are processed within 3-5 business days."
+  },
+  "sustainability": {
+    "title": "Sustainability - ShopHub",
+    "description": "ShopHub's commitment to sustainability, environmental initiatives, and responsible business practices.",
+    "commitment": "At ShopHub, sustainability is not just a buzzword—it's a core part of our mission."
+  },
+  "pressMedia": {
+    "title": "Press & Media - ShopHub",
+    "description": "ShopHub press releases, media resources, and brand assets for journalists and media professionals."
+  },
+  "admin": {
+    "loginTitle": "Admin Login - ShopHub",
+    "loginDescription": "Admin login for ShopHub management",
+    "accessDashboard": "Access the ShopHub Admin Dashboard",
+    "dashboardTitle": "Admin Dashboard - ShopHub",
+    "dashboardDescription": "ShopHub Admin Dashboard"
+  },
+  "accountSettings": {
+    "title": "Account Settings - ShopHub",
+    "description": "Manage your account settings and preferences"
+  },
+  "reportIssue": {
+    "title": "Report an Issue - ShopHub",
+    "description": "Report damaged, missing, or incorrect items. Submit a support ticket for order issues and get help from our customer service team."
+  },
+  "faqQuestions": {
+    "shippingCost": "How much does shipping cost?",
+    "shippingAnswer": "Shipping costs depend on your location, order weight, and shipping method. Free shipping is available on orders over $50."
+  },
+  "toast": {
+    "loginSuccess": "Login successful! 🎉",
+    "accountCreated": "Account created successfully! 🎉"
+  },
+  "pressReleases": {
+    "aiAssistant": "ShopHub Launches Revolutionary AI-Powered Shopping Assistant",
+    "carbonNeutral": "ShopHub Achieves Carbon Neutral Status Across All Operations",
+    "expansion": "ShopHub Expands to 50 Countries Worldwide"
+  },
+  "nav": {
+    "home": "Home",
+    "shop": "Shop",
+    "cart": "Cart",
+    "wishlist": "Wishlist",
+    "profile": "Profile",
+    "admin": "Admin",
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register"
+  },
+  "common": {
+    "search": "Search",
+    "searchPlaceholder": "Search for products...",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "remove": "Remove",
+    "update": "Update",
+    "confirm": "Confirm",
+    "close": "Close",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "viewAll": "View All",
+    "showMore": "Show More",
+    "showLess": "Show Less",
+    "addToCart": "Add to Cart",
+    "buyNow": "Buy Now",
+    "addToWishlist": "Add to Wishlist",
+    "removeFromWishlist": "Remove from Wishlist",
+    "outOfStock": "Out of Stock",
+    "inStock": "In Stock",
+    "price": "Price",
+    "quantity": "Quantity",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "tax": "Tax",
+    "discount": "Discount",
+    "free": "Free",
+    "new": "New",
+    "sale": "Sale",
+    "featured": "Featured",
+    "trending": "Trending",
+    "bestSeller": "Best Seller"
+  },
+  "footer": {
+    "customerService": "Customer Service",
+    "contactUs": "Contact Us",
+    "orderTracking": "Order Tracking",
+    "helpCenter": "Help Center",
+    "reportIssue": "Report an Issue",
+    "shippingDelivery": "Shipping & Delivery",
+    "shippingInfo": "Shipping Info",
+    "deliveryOptions": "Delivery Options",
+    "shippingCharges": "Shipping Charges",
+    "estimatedDelivery": "Estimated Delivery Time",
+    "internationalShipping": "International Shipping",
+    "returnsExchanges": "Returns & Exchanges",
+    "returnPolicy": "Return Policy",
+    "howToReturn": "How to Return",
+    "refundProcess": "Refund Process",
+    "exchangePolicy": "Exchange Policy",
+    "company": "Company",
+    "aboutUs": "About Us",
+    "careers": "Careers",
+    "pressMedia": "Press & Media",
+    "sustainability": "Sustainability",
+    "allRightsReserved": "All rights reserved.",
+    "selectLanguage": "Select Language",
+    "selectCurrency": "Select Currency",
+    "selectCountry": "Select Country"
+  },
+  "product": {
+    "outOfStock": "Out of Stock",
+    "inStock": "In Stock",
+    "hot": "Hot",
+    "rating": "Rating",
+    "reviews": "reviews",
+    "addedToCart": "Added to cart! 🎉",
+    "addedToWishlist": "Added to wishlist! ❤️",
+    "removedFromWishlist": "Removed from wishlist",
+    "outOfStockMessage": "This product is currently unavailable.",
+    "viewDetails": "View Details",
+    "specifications": "Specifications",
+    "features": "Features",
+    "description": "Description",
+    "relatedProducts": "Related Products",
+    "customerReviews": "Customer Reviews"
+  },
+  "search": {
+    "placeholder": "Search products...",
+    "noResults": "No results found",
+    "searching": "Searching..."
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "name": "Name",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phone": "Phone",
+    "welcomeBack": "Welcome Back",
+    "signInDescription": "Sign in to your ShopHub account",
+    "createAccount": "Create Account",
+    "joinDescription": "Join ShopHub and start shopping",
+    "forgotPassword": "Forgot Password?",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "signUp": "Sign Up",
+    "signIn": "Sign In",
+    "loginSuccess": "Login successful! 🎉",
+    "loginFailed": "Login failed",
+    "accountCreated": "Account created successfully! 🎉",
+    "invalidCredentials": "Please check your credentials and try again.",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "nameRequired": "Name is required"
+  },
+  "cart": {
+    "shoppingCart": "Shopping Cart",
+    "emptyCart": "Your cart is empty",
+    "emptyCartMessage": "Add some products to get started!",
+    "continueShopping": "Continue Shopping",
+    "proceedToCheckout": "Proceed to Checkout",
+    "removeItem": "Remove Item",
+    "updateQuantity": "Update Quantity",
+    "itemRemoved": "Item removed from cart",
+    "cartUpdated": "Cart updated"
+  },
+  "checkout": {
+    "checkout": "Checkout",
+    "shippingAddress": "Shipping Address",
+    "billingAddress": "Billing Address",
+    "paymentMethod": "Payment Method",
+    "orderSummary": "Order Summary",
+    "placeOrder": "Place Order",
+    "address": "Address",
+    "city": "City",
+    "state": "State",
+    "zipCode": "Zip Code",
+    "country": "Country",
+    "cardNumber": "Card Number",
+    "expiryDate": "Expiry Date",
+    "cvv": "CVV",
+    "processingOrder": "Processing your order...",
+    "orderPlaced": "Order placed successfully!",
+    "orderFailed": "Order failed",
+    "sameAsBilling": "Same as billing address"
+  },
+  "wishlist": {
+    "myWishlist": "My Wishlist",
+    "emptyWishlist": "Your wishlist is empty",
+    "emptyWishlistMessage": "Start adding products you love to your wishlist. They'll be saved here for easy access.",
+    "addToCart": "Add to Cart",
+    "removeFromWishlist": "Remove from Wishlist",
+    "selected": "selected",
+    "selectAll": "Select All",
+    "deselectAll": "Deselect All",
+    "bulkAddToCart": "Add Selected to Cart",
+    "bulkRemove": "Remove Selected",
+    "itemsAdded": "items added to cart",
+    "itemsRemoved": "items removed",
+    "sortBy": "Sort by",
+    "priceAscending": "Price: Low to High",
+    "priceDescending": "Price: High to Low",
+    "nameAscending": "Name: A-Z",
+    "newest": "Newest First"
+  },
+  "profile": {
+    "myProfile": "My Profile",
+    "accountSettings": "Account Settings",
+    "orderHistory": "Order History",
+    "addresses": "Addresses",
+    "paymentMethods": "Payment Methods",
+    "editProfile": "Edit Profile",
+    "saveChanges": "Save Changes",
+    "changePassword": "Change Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password"
+  }
+}

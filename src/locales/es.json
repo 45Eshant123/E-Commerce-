@@ -1,0 +1,342 @@
+{
+  "app": {
+    "name": "ShopHub"
+  },
+  "home": {
+    "title": "ShopHub - Productos Premium a Precios Increíbles",
+    "description": "Compra las últimas tendencias en electrónica, moda y artículos para el hogar. Envío gratuito en pedidos superiores a $50.",
+    "ourProducts": "Nuestros Productos"
+  },
+  "hero": {
+    "title": "¡Descubre las Mejores Ofertas en Electrónica, Moda y Más!",
+    "subtitle": "Compra tus productos favoritos a precios inmejorables.",
+    "shopNow": "Comprar Ahora"
+  },
+  "login": {
+    "title": "Iniciar Sesión - ShopHub",
+    "description": "Inicia sesión en tu cuenta de ShopHub",
+    "welcomeBack": "Bienvenido de Vuelta",
+    "signInDescription": "Inicia sesión en tu cuenta de ShopHub"
+  },
+  "register": {
+    "title": "Registrarse - ShopHub",
+    "description": "Crea tu cuenta de ShopHub",
+    "createAccount": "Crear Cuenta",
+    "joinDescription": "Únete a ShopHub y comienza a comprar"
+  },
+  "cart": {
+    "title": "Carrito de Compras - ShopHub",
+    "description": "Revisa tu carrito de compras y procede al pago"
+  },
+  "checkout": {
+    "title": "Pago - ShopHub",
+    "description": "Completa tu compra de forma segura"
+  },
+  "order": {
+    "successTitle": "Pedido Exitoso - ShopHub",
+    "successDescription": "Tu pedido ha sido realizado exitosamente",
+    "thankYou": "Gracias por comprar en ShopHub. Tu pedido está siendo procesado.",
+    "confirmedTitle": "Pedido Confirmado - ShopHub",
+    "confirmedDescription": "Tu pedido ha sido realizado exitosamente. Rastrea tu entrega y gestiona tu compra.",
+    "failedTitle": "Pedido Fallido - ShopHub",
+    "failedDescription": "Hubo un problema procesando tu pedido",
+    "trackingTitle": "Seguimiento de Pedido - ShopHub",
+    "trackingDescription": "Rastrea tu pedido de ShopHub en tiempo real. Ingresa tu ID de pedido y correo electrónico para ver el estado actual y actualizaciones de entrega."
+  },
+  "payment": {
+    "successTitle": "Pago Exitoso - ShopHub",
+    "successDescription": "Tu pago ha sido procesado exitosamente",
+    "failedTitle": "Pago Fallido - ShopHub",
+    "failedDescription": "El procesamiento del pago falló. Por favor, inténtalo de nuevo o contacta con soporte."
+  },
+  "profile": {
+    "title": "Mi Perfil - ShopHub",
+    "description": "Gestiona tu cuenta, ve pedidos y actualiza tu perfil"
+  },
+  "wishlist": {
+    "title": "Mi Lista de Deseos - ShopHub",
+    "description": "Ve y gestiona tus productos guardados"
+  },
+  "compare": {
+    "title": "Comparar Productos - ShopHub",
+    "description": "Compara productos lado a lado para tomar la mejor decisión"
+  },
+  "company": {
+    "title": "Empresa - ShopHub",
+    "description": "Aprende sobre la misión, valores, carreras y compromiso con la sostenibilidad de ShopHub. Únete a nuestro equipo y descubre nuestra historia."
+  },
+  "careers": {
+    "title": "Carreras - ShopHub",
+    "description": "Únete al equipo de ShopHub y forma parte de dar forma al futuro del e-commerce. Explora oportunidades de carrera y nuestra cultura corporativa.",
+    "whyJoin": "¿Por Qué Unirse a ShopHub?"
+  },
+  "contact": {
+    "title": "Contáctanos - ShopHub",
+    "description": "Ponte en contacto con el soporte al cliente de ShopHub. Estamos aquí para ayudarte con cualquier pregunta o preocupación."
+  },
+  "customerService": {
+    "title": "Servicio al Cliente - ShopHub",
+    "description": "Obtén ayuda con pedidos, devoluciones, envíos y más. Estamos aquí para ayudarte 24/7."
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes - ShopHub",
+    "description": "Preguntas frecuentes sobre envíos, devoluciones, pagos y más"
+  },
+  "helpCenter": {
+    "title": "Centro de Ayuda - ShopHub",
+    "description": "Encuentra respuestas a preguntas frecuentes sobre pedidos, envíos, devoluciones y más. Obtén ayuda con tu experiencia en ShopHub."
+  },
+  "shipping": {
+    "title": "Envío y Entrega - ShopHub",
+    "description": "Aprende sobre nuestras políticas de envío, opciones de entrega y servicios de envío internacional."
+  },
+  "returns": {
+    "title": "Devoluciones y Cambios - ShopHub",
+    "description": "Devoluciones fáciles, reembolsos rápidos y cambios simples. Devuelve artículos dentro de 14 días para un reembolso completo o cambio."
+  },
+  "returnPolicy": {
+    "title": "Política de Devoluciones - ShopHub",
+    "description": "Aprende sobre nuestra política de devoluciones, requisitos de elegibilidad y condiciones para devolver artículos."
+  },
+  "exchangePolicy": {
+    "title": "Política de Cambios - ShopHub",
+    "description": "Aprende sobre nuestra política de cambios para tallas, colores y productos. Cambia artículos dentro de 14 días de entrega."
+  },
+  "howToReturn": {
+    "title": "Cómo Devolver - ShopHub",
+    "description": "Guía paso a paso para devolver artículos. Aprende cómo iniciar devoluciones, empacar artículos y programar recogidas."
+  },
+  "refundProcess": {
+    "title": "Proceso de Reembolso - ShopHub",
+    "description": "Aprende sobre nuestros plazos y métodos de procesamiento de reembolsos. Los reembolsos se procesan dentro de 3-5 días hábiles."
+  },
+  "sustainability": {
+    "title": "Sostenibilidad - ShopHub",
+    "description": "El compromiso de ShopHub con la sostenibilidad, iniciativas ambientales y prácticas comerciales responsables.",
+    "commitment": "En ShopHub, la sostenibilidad no es solo una palabra de moda—es una parte central de nuestra misión."
+  },
+  "pressMedia": {
+    "title": "Prensa y Medios - ShopHub",
+    "description": "Comunicados de prensa de ShopHub, recursos de medios y activos de marca para periodistas y profesionales de los medios."
+  },
+  "admin": {
+    "loginTitle": "Inicio de Sesión de Administrador - ShopHub",
+    "loginDescription": "Inicio de sesión de administrador para gestión de ShopHub",
+    "accessDashboard": "Accede al Panel de Administración de ShopHub",
+    "dashboardTitle": "Panel de Administración - ShopHub",
+    "dashboardDescription": "Panel de Administración de ShopHub"
+  },
+  "accountSettings": {
+    "title": "Configuración de Cuenta - ShopHub",
+    "description": "Gestiona la configuración y preferencias de tu cuenta"
+  },
+  "reportIssue": {
+    "title": "Reportar un Problema - ShopHub",
+    "description": "Reporta artículos dañados, faltantes o incorrectos. Envía un ticket de soporte para problemas de pedido y obtén ayuda de nuestro equipo de servicio al cliente."
+  },
+  "faqQuestions": {
+    "shippingCost": "¿Cuánto cuesta el envío?",
+    "shippingAnswer": "Los costos de envío dependen de tu ubicación, el peso del pedido y el método de envío. El envío gratuito está disponible en pedidos superiores a $50."
+  },
+  "toast": {
+    "loginSuccess": "¡Inicio de sesión exitoso! 🎉",
+    "accountCreated": "¡Cuenta creada exitosamente! 🎉"
+  },
+  "pressReleases": {
+    "aiAssistant": "ShopHub Lanza Asistente de Compras Revolucionario Impulsado por IA",
+    "carbonNeutral": "ShopHub Alcanza Estado Neutral en Carbono en Todas las Operaciones",
+    "expansion": "ShopHub Se Expande a 50 Países en Todo el Mundo"
+  },
+  "nav": {
+    "home": "Inicio",
+    "shop": "Tienda",
+    "cart": "Carrito",
+    "wishlist": "Lista de Deseos",
+    "profile": "Perfil",
+    "admin": "Administrador",
+    "login": "Iniciar Sesión",
+    "logout": "Cerrar Sesión",
+    "register": "Registrarse"
+  },
+  "common": {
+    "search": "Buscar",
+    "searchPlaceholder": "Buscar productos...",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Agregar",
+    "remove": "Quitar",
+    "update": "Actualizar",
+    "confirm": "Confirmar",
+    "close": "Cerrar",
+    "submit": "Enviar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "viewAll": "Ver Todo",
+    "showMore": "Mostrar Más",
+    "showLess": "Mostrar Menos",
+    "addToCart": "Agregar al Carrito",
+    "buyNow": "Comprar Ahora",
+    "addToWishlist": "Agregar a Lista de Deseos",
+    "removeFromWishlist": "Quitar de Lista de Deseos",
+    "outOfStock": "Agotado",
+    "inStock": "En Stock",
+    "price": "Precio",
+    "quantity": "Cantidad",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "shipping": "Envío",
+    "tax": "Impuesto",
+    "discount": "Descuento",
+    "free": "Gratis",
+    "new": "Nuevo",
+    "sale": "Oferta",
+    "featured": "Destacado",
+    "trending": "Tendencia",
+    "bestSeller": "Más Vendido"
+  },
+  "footer": {
+    "customerService": "Servicio al Cliente",
+    "contactUs": "Contáctanos",
+    "orderTracking": "Seguimiento de Pedido",
+    "helpCenter": "Centro de Ayuda",
+    "reportIssue": "Reportar un Problema",
+    "shippingDelivery": "Envío y Entrega",
+    "shippingInfo": "Información de Envío",
+    "deliveryOptions": "Opciones de Entrega",
+    "shippingCharges": "Cargos de Envío",
+    "estimatedDelivery": "Tiempo de Entrega Estimado",
+    "internationalShipping": "Envío Internacional",
+    "returnsExchanges": "Devoluciones y Cambios",
+    "returnPolicy": "Política de Devoluciones",
+    "howToReturn": "Cómo Devolver",
+    "refundProcess": "Proceso de Reembolso",
+    "exchangePolicy": "Política de Cambios",
+    "company": "Empresa",
+    "aboutUs": "Sobre Nosotros",
+    "careers": "Carreras",
+    "pressMedia": "Prensa y Medios",
+    "sustainability": "Sostenibilidad",
+    "allRightsReserved": "Todos los derechos reservados.",
+    "selectLanguage": "Seleccionar Idioma",
+    "selectCurrency": "Seleccionar Moneda",
+    "selectCountry": "Seleccionar País"
+  },
+  "product": {
+    "outOfStock": "Agotado",
+    "inStock": "En Stock",
+    "hot": "Popular",
+    "rating": "Calificación",
+    "reviews": "reseñas",
+    "addedToCart": "¡Agregado al carrito! 🎉",
+    "addedToWishlist": "¡Agregado a lista de deseos! ❤️",
+    "removedFromWishlist": "Eliminado de lista de deseos",
+    "outOfStockMessage": "Este producto no está disponible actualmente.",
+    "viewDetails": "Ver Detalles",
+    "specifications": "Especificaciones",
+    "features": "Características",
+    "description": "Descripción",
+    "relatedProducts": "Productos Relacionados",
+    "customerReviews": "Reseñas de Clientes"
+  },
+  "search": {
+    "placeholder": "Buscar productos...",
+    "noResults": "No se encontraron resultados",
+    "searching": "Buscando..."
+  },
+  "auth": {
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
+    "logout": "Cerrar Sesión",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "name": "Nombre",
+    "firstName": "Primer Nombre",
+    "lastName": "Apellido",
+    "phone": "Teléfono",
+    "welcomeBack": "Bienvenido de Vuelta",
+    "signInDescription": "Inicia sesión en tu cuenta de ShopHub",
+    "createAccount": "Crear Cuenta",
+    "joinDescription": "Únete a ShopHub y comienza a comprar",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "dontHaveAccount": "¿No tienes una cuenta?",
+    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "signUp": "Registrarse",
+    "signIn": "Iniciar Sesión",
+    "loginSuccess": "¡Inicio de sesión exitoso! 🎉",
+    "loginFailed": "Inicio de sesión fallido",
+    "accountCreated": "¡Cuenta creada exitosamente! 🎉",
+    "invalidCredentials": "Por favor verifica tus credenciales e inténtalo de nuevo.",
+    "emailRequired": "El correo electrónico es requerido",
+    "passwordRequired": "La contraseña es requerida",
+    "nameRequired": "El nombre es requerido"
+  },
+  "cart": {
+    "shoppingCart": "Carrito de Compras",
+    "emptyCart": "Tu carrito está vacío",
+    "emptyCartMessage": "¡Agrega algunos productos para comenzar!",
+    "continueShopping": "Continuar Comprando",
+    "proceedToCheckout": "Proceder al Pago",
+    "removeItem": "Eliminar Artículo",
+    "updateQuantity": "Actualizar Cantidad",
+    "itemRemoved": "Artículo eliminado del carrito",
+    "cartUpdated": "Carrito actualizado"
+  },
+  "checkout": {
+    "checkout": "Pago",
+    "shippingAddress": "Dirección de Envío",
+    "billingAddress": "Dirección de Facturación",
+    "paymentMethod": "Método de Pago",
+    "orderSummary": "Resumen del Pedido",
+    "placeOrder": "Realizar Pedido",
+    "address": "Dirección",
+    "city": "Ciudad",
+    "state": "Estado",
+    "zipCode": "Código Postal",
+    "country": "País",
+    "cardNumber": "Número de Tarjeta",
+    "expiryDate": "Fecha de Vencimiento",
+    "cvv": "CVV",
+    "processingOrder": "Procesando tu pedido...",
+    "orderPlaced": "¡Pedido realizado exitosamente!",
+    "orderFailed": "Pedido fallido",
+    "sameAsBilling": "Igual que la dirección de facturación"
+  },
+  "wishlist": {
+    "myWishlist": "Mi Lista de Deseos",
+    "emptyWishlist": "Tu lista de deseos está vacía",
+    "emptyWishlistMessage": "Comienza a agregar productos que te gusten a tu lista de deseos. Se guardarán aquí para un fácil acceso.",
+    "addToCart": "Agregar al Carrito",
+    "removeFromWishlist": "Eliminar de Lista de Deseos",
+    "selected": "seleccionado",
+    "selectAll": "Seleccionar Todo",
+    "deselectAll": "Deseleccionar Todo",
+    "bulkAddToCart": "Agregar Seleccionados al Carrito",
+    "bulkRemove": "Eliminar Seleccionados",
+    "itemsAdded": "artículos agregados al carrito",
+    "itemsRemoved": "artículos eliminados",
+    "sortBy": "Ordenar por",
+    "priceAscending": "Precio: Bajo a Alto",
+    "priceDescending": "Precio: Alto a Bajo",
+    "nameAscending": "Nombre: A-Z",
+    "newest": "Más Nuevos Primero"
+  },
+  "profile": {
+    "myProfile": "Mi Perfil",
+    "accountSettings": "Configuración de Cuenta",
+    "orderHistory": "Historial de Pedidos",
+    "addresses": "Direcciones",
+    "paymentMethods": "Métodos de Pago",
+    "editProfile": "Editar Perfil",
+    "saveChanges": "Guardar Cambios",
+    "changePassword": "Cambiar Contraseña",
+    "currentPassword": "Contraseña Actual",
+    "newPassword": "Nueva Contraseña"
+  }
+}
