@@ -3,8 +3,6 @@ import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { Users, TrendingUp, Heart, Users2, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 const CareersPage = () => {
   const benefits = [
@@ -63,8 +61,6 @@ const CareersPage = () => {
         <title>Careers - ShopHub</title>
         <meta name="description" content="Join the ShopHub team and be part of shaping the future of e-commerce. Explore career opportunities and our company culture." />
       </Helmet>
-
-      <Header />
 
       <main className="flex-1 py-12">
         <div className="container mx-auto px-4 max-w-4xl">
@@ -189,8 +185,6 @@ const CareersPage = () => {
           </motion.div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 };

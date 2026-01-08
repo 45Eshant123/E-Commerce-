@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { ChevronRight, Phone, Mail, MessageCircle, Clock, MapPin, MessageSquare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -72,8 +70,6 @@ const ContactUsPage = () => {
         <title>Contact Us - ShopHub</title>
         <meta name="description" content="Get in touch with ShopHub customer support. We're here to help with any questions or concerns." />
       </Helmet>
-
-      <Header />
 
       <main className="flex-1 py-8">
         <div className="container mx-auto px-4 max-w-6xl">
@@ -229,8 +225,6 @@ const ContactUsPage = () => {
           </motion.div>
         </div>
       </main>
-
-      <Footer />
 
       {/* Floating Chat Button */}
       <motion.button

@@ -2,8 +2,6 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { ChevronRight, ArrowRightLeft, ArrowLeft, CheckCircle, XCircle } from 'lucide-react';
 
 const ExchangePolicyPage = () => {
@@ -56,8 +54,6 @@ const ExchangePolicyPage = () => {
         <title>Exchange Policy - ShopHub</title>
         <meta name="description" content="Learn about our exchange policy for sizes, colors, and products. Exchange items within 14 days of delivery." />
       </Helmet>
-
-      <Header />
 
       <main className="flex-1 py-8">
         <div className="container mx-auto px-4 max-w-4xl">
@@ -210,8 +206,6 @@ const ExchangePolicyPage = () => {
           </motion.div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 };

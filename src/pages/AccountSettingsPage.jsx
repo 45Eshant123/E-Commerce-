@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion, AnimatePresence } from 'framer-motion';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -162,8 +160,6 @@ const AccountSettingsPage = () => {
         <title>Account Settings - ShopHub</title>
         <meta name="description" content="Manage your account settings, profile information, and privacy preferences" />
       </Helmet>
-
-      <Header />
 
       <main className="flex-1 py-12">
         <div className="container mx-auto px-4 max-w-4xl">
@@ -340,8 +336,6 @@ const AccountSettingsPage = () => {
           </motion.div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 };

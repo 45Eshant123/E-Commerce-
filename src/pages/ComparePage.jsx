@@ -3,8 +3,6 @@ import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { X, ShoppingCart, Star, Check, X as Close } from 'lucide-react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { useCart } from '@/context/CartContext';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
@@ -94,8 +92,6 @@ const ComparePage = () => {
         <title>Compare Products - ShopHub</title>
         <meta name="description" content="Compare products side by side to make the best choice" />
       </Helmet>
-
-      <Header />
 
       <main className="flex-1 py-12 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-4 max-w-7xl">
@@ -235,8 +231,6 @@ const ComparePage = () => {
           )}
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 };

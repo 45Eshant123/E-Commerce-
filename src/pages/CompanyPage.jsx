@@ -3,8 +3,6 @@ import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { Building, Users, Newspaper, Leaf } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 const CompanyPage = () => {
   const sections = [
@@ -48,8 +46,6 @@ const CompanyPage = () => {
         <title>Company - ShopHub</title>
         <meta name="description" content="Learn about ShopHub's mission, values, careers, and commitment to sustainability. Join our team and discover our story." />
       </Helmet>
-
-      <Header />
 
       <main className="flex-1 py-12">
         <div className="container mx-auto px-4 max-w-4xl">
@@ -137,8 +133,6 @@ const CompanyPage = () => {
           </motion.div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 };

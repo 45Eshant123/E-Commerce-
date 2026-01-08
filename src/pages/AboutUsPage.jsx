@@ -3,8 +3,6 @@ import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { Building, Target, Heart, Award, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 const AboutUsPage = () => {
   return (
@@ -13,8 +11,6 @@ const AboutUsPage = () => {
         <title>About Us - ShopHub</title>
         <meta name="description" content="Learn about ShopHub's mission, values, and commitment to providing exceptional online shopping experiences." />
       </Helmet>
-
-      <Header />
 
       <main className="flex-1 py-12">
         <div className="container mx-auto px-4 max-w-4xl">

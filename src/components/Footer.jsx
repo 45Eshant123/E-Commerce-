@@ -11,38 +11,38 @@ const Footer = () => {
     {
       title: t('footer.customerService'),
       links: [
-        { name: t('footer.contactUs'), href: '/customer-service' },
-        { name: t('footer.orderTracking'), href: '#' },
-        { name: t('footer.helpCenter'), href: '#' },
-        { name: t('footer.reportIssue'), href: '#' }
+        { name: t('footer.contactUs'), href: '/contact' },
+        { name: t('footer.orderTracking'), href: '/track-order' },
+        { name: t('footer.helpCenter'), href: '/help' },
+        { name: t('footer.reportIssue'), href: '/report-issue' }
       ]
     },
     {
       title: t('footer.shippingDelivery'),
       links: [
-        { name: t('footer.shippingInfo'), href: '/shipping-delivery' },
-        { name: t('footer.deliveryOptions'), href: '#' },
-        { name: t('footer.shippingCharges'), href: '#' },
-        { name: t('footer.estimatedDelivery'), href: '#' },
-        { name: t('footer.internationalShipping'), href: '#' }
+        { name: t('footer.shippingInfo'), href: '/shipping' },
+        { name: t('footer.deliveryOptions'), href: '/shipping' },
+        { name: t('footer.shippingCharges'), href: '/shipping' },
+        { name: t('footer.estimatedDelivery'), href: '/shipping' },
+        { name: t('footer.internationalShipping'), href: '/shipping' }
       ]
     },
     {
       title: t('footer.returnsExchanges'),
       links: [
-        { name: t('footer.returnPolicy'), href: '/returns-exchanges' },
-        { name: t('footer.howToReturn'), href: '#' },
-        { name: t('footer.refundProcess'), href: '#' },
-        { name: t('footer.exchangePolicy'), href: '#' }
+        { name: t('footer.returnPolicy'), href: '/return-policy' },
+        { name: t('footer.howToReturn'), href: '/how-to-return' },
+        { name: t('footer.refundProcess'), href: '/refund-process' },
+        { name: t('footer.exchangePolicy'), href: '/exchange-policy' }
       ]
     },
     {
       title: t('footer.company'),
       links: [
-        { name: t('footer.aboutUs'), href: '/company/about-us' },
-        { name: t('footer.careers'), href: '/company/careers' },
-        { name: t('footer.pressMedia'), href: '/company/press-media' },
-        { name: t('footer.sustainability'), href: '/company/sustainability' }
+        { name: t('footer.aboutUs'), href: '/about' },
+        { name: t('footer.careers'), href: '/careers' },
+        { name: t('footer.pressMedia'), href: '/press' },
+        { name: t('footer.sustainability'), href: '/sustainability' }
       ]
     }
   ];

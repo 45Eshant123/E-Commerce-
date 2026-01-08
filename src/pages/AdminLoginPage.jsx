@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -60,8 +58,6 @@ const AdminLoginPage = () => {
         <title>Admin Login - ShopHub</title>
         <meta name="description" content="Admin login for ShopHub management" />
       </Helmet>
-
-      <Header />
 
       <main className="flex-1 flex items-center justify-center py-12 bg-gray-50 dark:bg-gray-900">
         <motion.div
@@ -152,8 +148,6 @@ const AdminLoginPage = () => {
           </div>
         </motion.div>
       </main>
-
-      <Footer />
     </div>
   );
 };

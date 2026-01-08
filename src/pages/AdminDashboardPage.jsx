@@ -3,8 +3,6 @@ import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -150,8 +148,6 @@ const AdminDashboardPage = () => {
         <title>Admin Dashboard - ShopHub</title>
         <meta name="description" content="ShopHub Admin Dashboard" />
       </Helmet>
-
-      <Header />
 
       <main className="flex-1 py-8">
         <div className="container mx-auto px-4 max-w-7xl">
@@ -565,8 +561,6 @@ const AdminDashboardPage = () => {
           )}
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 };
