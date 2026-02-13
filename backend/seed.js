@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const Product = require('./models/Product');
 const User = require('./models/User');
 require('dotenv').config();
@@ -10,7 +11,7 @@ async function seedUsers() {
         name: 'John Doe',
         email: 'john.doe@example.com',
         phone: '+1 (555) 123-4567',
-        password: 'password123', // In production, this should be hashed
+        password: 'password123',
         address: {
           street: '123 Main St',
           city: 'New York',
@@ -31,18 +32,39 @@ async function seedUsers() {
           zipCode: '90210',
           country: 'USA'
         }
+      },
+      {
+        name: 'Pratik Sri',
+        email: 'pratiksri09@gmail.com',
+        phone: '+1234567890',
+        password: 'Eshant@123',
+        address: {
+          street: '789 Park Ave',
+          city: 'Chicago',
+          state: 'IL',
+          zipCode: '60601',
+          country: 'USA'
+        }
       }
     ];
 
     // Clear existing users
     await User.deleteMany({});
 
-    // Insert users
-    for (const user of users) {
-      await User.create(user);
+    // Insert users with double hashing (matching registration route)
+    for (const userData of users) {
+      // First hash (manual - like in registration route)
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(userData.password, salt);
+      
+      // Create user with hashed password (will be hashed again by pre-save hook)
+      await User.create({
+        ...userData,
+        password: hashedPassword
+      });
     }
 
-    console.log('Users seeded successfully');
+    console.log('Users seeded successfully with double hashing');
   } catch (error) {
     console.error('User seeding error:', error);
     throw error;

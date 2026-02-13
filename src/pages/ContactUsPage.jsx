@@ -29,7 +29,7 @@ const ContactUsPage = () => {
       icon: Mail,
       title: 'Email Support',
       description: 'Send us a detailed message',
-      details: 'support@shophub.com',
+      details: 'williamroger856@gmail.com',
       availability: 'Response within 24 hours',
       color: 'bg-green-500'
     },
@@ -45,7 +45,7 @@ const ContactUsPage = () => {
       icon: MapPin,
       title: 'Visit Us',
       description: 'Our headquarters location',
-      details: '123 Commerce St, New York, NY 10001',
+      details: 'Lucknow , Uttar Pradesh , 120401',
       availability: 'Mon-Fri 9AM-5PM EST',
       color: 'bg-orange-500'
     }

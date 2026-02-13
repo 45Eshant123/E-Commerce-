@@ -74,14 +74,14 @@ router.post('/register', validateRegistration, async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create new user
+    // Create new user (will be hashed again by pre-save hook for double hashing)
     const newUser = new User({
       name,
       email,
       password: hashedPassword,
       phone: phone || '',
       address: address || {},
-      role: 'user' // Default role
+      role: 'user'
     });
 
     await newUser.save();
@@ -93,7 +93,6 @@ router.post('/register', validateRegistration, async (req, res) => {
       { expiresIn: '7d' }
     );
 
-    // Return user data (without password) and token
     const userResponse = {
       _id: newUser._id,
       name: newUser.name,
