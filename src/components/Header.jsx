@@ -1,24 +1,47 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ShoppingCart, Store, Heart, User, Moon, Sun, Search, Shield } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ShoppingCart, Store, Heart, User, Moon, Sun, Search, Shield, LogOut } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
 import { useTheme } from '@/context/ThemeContext';
 import { useAuth } from '@/context/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import SearchBar from '@/components/SearchBar';
 
 const Header = () => {
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { getCartCount } = useCart();
   const { wishlist } = useWishlist();
   const { theme, toggleTheme } = useTheme();
-  const { isAdmin } = useAuth();
+  const { isAdmin, isAuthenticated, user, logout, logoutAllDevices } = useAuth();
   const cartCount = getCartCount();
+
+  const displayName = user?.fullName || user?.name || 'Account';
+  const displayEmail = user?.email || '';
+
+  const handleProfileClick = () => {
+    if (!isAuthenticated) {
+      navigate('/login');
+      return;
+    }
+    setProfileDropdownOpen((prev) => !prev);
+  };
+
+  const handleLogout = () => {
+    logout();
+    setProfileDropdownOpen(false);
+    navigate('/login');
+  };
+
+  const handleLogoutAllDevices = () => {
+    logoutAllDevices();
+    setProfileDropdownOpen(false);
+    navigate('/signup');
+  };
 
   return (
     <header className="bg-white dark:bg-gray-900 shadow-sm sticky top-0 z-50 transition-colors">
@@ -83,7 +106,6 @@ const Header = () => {
                 </motion.span>
               )}
             </Button>
-
             {isAdmin && (
               <Button
                 variant="ghost"
@@ -94,11 +116,45 @@ const Header = () => {
                 <span>{t('nav.admin')}</span>
               </Button>
             )}
-
-            <Link to="/profile" className="flex items-center gap-2 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
-              <User className="w-5 h-5" />
-              <span>{t('nav.profile')}</span>
-            </Link>
+            <div className="relative">
+              <Button
+                variant="ghost"
+                onClick={handleProfileClick}
+                className="flex items-center gap-2"
+              >
+                <User className="w-5 h-5" />
+                <span>{isAuthenticated ? displayName : (t('nav.profile') || 'Profile')}</span>
+              </Button>
+              <AnimatePresence>
+                {isAuthenticated && profileDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50"
+                  >
+                    <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                      <p className="font-semibold text-gray-900 dark:text-white truncate">{displayName}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 truncate">{displayEmail}</p>
+                    </div>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-2 text-gray-700 dark:text-gray-200"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Logout
+                    </button>
+                    <button
+                      onClick={handleLogoutAllDevices}
+                      className="w-full px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-2 text-red-600 dark:text-red-400 border-t border-gray-200 dark:border-gray-700"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Logout from all devices
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </div>
       </nav>

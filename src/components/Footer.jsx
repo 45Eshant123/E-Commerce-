@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/context/ThemeContext';
 import GlobalSelector from '@/components/GlobalSelector';
@@ -48,9 +49,9 @@ const Footer = () => {
   ];
 
   const legalLinks = [
-    { name: 'Privacy Policy', href: '#' },
-    { name: 'Terms & Conditions', href: '#' },
-    { name: 'Cookie Policy', href: '#' }
+    { name: 'Privacy Policy', href: '/privacy-policy' },
+    { name: 'Terms & Conditions', href: '/terms-conditions' },
+    { name: 'Cookie Policy', href: '/cookie-policy' }
   ];
 
   return (
@@ -66,12 +67,12 @@ const Footer = () => {
               <ul className="space-y-2">
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
-                    <a
-                      href={link.href}
+                    <Link
+                      to={link.href}
                       className="text-gray-300 hover:text-[#febd69] transition-colors duration-200 text-sm"
                     >
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -99,13 +100,13 @@ const Footer = () => {
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 text-xs text-gray-400">
           <div className="flex gap-4">
             {legalLinks.map((link, index) => (
-              <a
+              <Link
                 key={index}
-                href={link.href}
+                to={link.href}
                 className="hover:text-[#febd69] transition-colors duration-200"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </div>
           <span>© 2025 ShopHub. {t('footer.allRightsReserved')}</span>

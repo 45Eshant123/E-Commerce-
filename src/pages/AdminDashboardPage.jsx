@@ -114,7 +114,7 @@ const AdminDashboardPage = () => {
   const stats = [
     {
       title: 'Total Sales',
-      value: '$45,230',
+      value: '₹45,230',
       change: '+12.5%',
       icon: DollarSign,
       color: 'text-green-600'

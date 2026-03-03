@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/contexts/AuthContext';
 import FormInput from '@/components/FormInput';
 import FormCheckbox from '@/components/FormCheckbox';
 import FormButton from '@/components/FormButton';
@@ -135,6 +135,7 @@ const LoginPage = () => {
                             </Link>
                         </div>
 
+                        {/* Honeypot field */}
                         <input
                             type="text"
                             name="honeypot"
