@@ -10,7 +10,7 @@ This repository includes:
 - A React + Vite frontend in `src/`
 - An Express + MongoDB backend in `backend/`
 - Admin/testing helper scripts in `backend/*.js`
-- Additional historical/alternate frontend folders (`login_folder/`, `login_folder-1/`)
+- Additional historical/alternate frontend folders (`login_folder-1/`)
 
 The app supports product browsing, authentication, role-based admin operations, recommendations, orders, and Stripe-based/payment-mock flows.
 
