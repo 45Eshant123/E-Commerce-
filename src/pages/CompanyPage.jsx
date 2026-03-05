@@ -11,7 +11,7 @@ const CompanyPage = () => {
       title: 'About Us',
       icon: Building,
       color: 'text-blue-600 dark:text-blue-400',
-      path: '/company/about-us',
+      path: '/about',
       description: 'Learn about our story, mission, and values that drive everything we do.'
     },
     {
@@ -19,7 +19,7 @@ const CompanyPage = () => {
       title: 'Careers',
       icon: Users,
       color: 'text-green-600 dark:text-green-400',
-      path: '/company/careers',
+      path: '/careers',
       description: 'Join our dynamic team and be part of shaping the future of e-commerce.'
     },
     {
@@ -27,7 +27,7 @@ const CompanyPage = () => {
       title: 'Press & Media',
       icon: Newspaper,
       color: 'text-purple-600 dark:text-purple-400',
-      path: '/company/press-media',
+      path: '/press',
       description: 'Press releases, media resources, and brand assets for journalists.'
     },
     {
@@ -35,7 +35,7 @@ const CompanyPage = () => {
       title: 'Sustainability',
       icon: Leaf,
       color: 'text-orange-600 dark:text-orange-400',
-      path: '/company/sustainability',
+      path: '/sustainability',
       description: 'Our commitment to environmental responsibility and sustainable practices.'
     }
   ];

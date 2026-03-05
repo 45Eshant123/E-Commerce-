@@ -31,7 +31,7 @@ const CustomerServicePage = () => {
       description: 'Get in touch with our support team via email, chat, or phone.',
       icon: MessageCircle,
       color: 'bg-blue-500',
-      href: '/customer-service/contact-us'
+      href: '/contact'
     },
     {
       id: 'tracking',
@@ -39,7 +39,7 @@ const CustomerServicePage = () => {
       description: 'Track your order status in real-time using your order ID and email.',
       icon: Truck,
       color: 'bg-green-500',
-      href: '/customer-service/order-tracking'
+      href: '/track-order'
     },
     {
       id: 'help',
@@ -47,7 +47,7 @@ const CustomerServicePage = () => {
       description: 'Browse frequently asked questions and self-help guides.',
       icon: HelpCircle,
       color: 'bg-purple-500',
-      href: '/customer-service/help-center'
+      href: '/help'
     },
     {
       id: 'report',
@@ -55,7 +55,7 @@ const CustomerServicePage = () => {
       description: 'Submit a support ticket for damaged, missing, or incorrect products.',
       icon: AlertTriangle,
       color: 'bg-red-500',
-      href: '/customer-service/report-issue'
+      href: '/report-issue'
     },
     {
       id: 'shipping',
@@ -63,7 +63,7 @@ const CustomerServicePage = () => {
       description: 'View delivery options, shipping charges, and estimated delivery time.',
       icon: Truck,
       color: 'bg-orange-500',
-      href: '/shipping-delivery'
+      href: '/shipping'
     },
     {
       id: 'returns',
@@ -79,7 +79,7 @@ const CustomerServicePage = () => {
       description: 'Assistance with login, payment methods, and cancellations.',
       icon: User,
       color: 'bg-indigo-500',
-      href: '#account'
+      href: '/account-settings'
     },
     {
       id: 'warranty',
@@ -87,7 +87,7 @@ const CustomerServicePage = () => {
       description: 'Information about product warranties and claims.',
       icon: Shield,
       color: 'bg-yellow-500',
-      href: '#warranty'
+      href: '/faq'
     }
   ];
 
@@ -161,22 +161,26 @@ const CustomerServicePage = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 p-6 group cursor-pointer"
-                  onClick={() => window.location.href = section.href}
+                  className="group"
                 >
-                  <div className={`w-12 h-12 ${section.color} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    <IconComponent className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                    {section.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                    {section.description}
-                  </p>
-                  <div className="mt-4 flex items-center text-blue-600 dark:text-blue-400 font-medium text-sm group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">
-                    Learn more
-                    <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                  </div>
+                  <Link
+                    to={section.href}
+                    className="block bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 p-6 hover:-translate-y-1"
+                  >
+                    <div className={`w-12 h-12 ${section.color} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                      <IconComponent className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      {section.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                      {section.description}
+                    </p>
+                    <div className="mt-4 flex items-center text-blue-600 dark:text-blue-400 font-medium text-sm group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">
+                      Learn more
+                      <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </Link>
                 </motion.div>
               );
             })}

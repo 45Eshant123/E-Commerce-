@@ -31,7 +31,7 @@ const ShippingDeliveryPage = () => {
       title: 'Estimated Delivery Time',
       description: 'Check expected delivery timelines for your orders',
       icon: Clock,
-      href: '/estimated-delivery-time',
+      href: '/estimated-delivery',
       color: 'bg-purple-500'
     },
     {

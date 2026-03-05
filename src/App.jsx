@@ -139,6 +139,12 @@ const AppShell = () => {
           <Route path="/customer-service" element={<CustomerServicePage />} />
           <Route path="/help" element={<HelpCenterPage />} />
           <Route path="/shipping" element={<ShippingDeliveryPage />} />
+          <Route path="/shipping-info" element={<ShippingDeliveryPage />} />
+          <Route path="/delivery-options" element={<ShippingDeliveryPage />} />
+          <Route path="/shipping-charges" element={<ShippingDeliveryPage />} />
+          <Route path="/estimated-delivery" element={<ShippingDeliveryPage />} />
+          <Route path="/estimated-delivery-time" element={<ShippingDeliveryPage />} />
+          <Route path="/international-shipping" element={<ShippingDeliveryPage />} />
           <Route path="/return-policy" element={<ReturnPolicyPage />} />
           <Route path="/returns" element={<ReturnsExchangesPage />} />
           <Route path="/returns-exchanges" element={<ReturnsExchangesPage />} />

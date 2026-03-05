@@ -12,6 +12,7 @@ const Footer = () => {
     {
       title: t('footer.customerService'),
       links: [
+        { name: t('footer.customerService'), href: '/customer-service' },
         { name: t('footer.contactUs'), href: '/contact' },
         { name: t('footer.orderTracking'), href: '/track-order' },
         { name: t('footer.helpCenter'), href: '/help' },
@@ -21,16 +22,18 @@ const Footer = () => {
     {
       title: t('footer.shippingDelivery'),
       links: [
-        { name: t('footer.shippingInfo'), href: '/shipping' },
-        { name: t('footer.deliveryOptions'), href: '/shipping' },
-        { name: t('footer.shippingCharges'), href: '/shipping' },
-        { name: t('footer.estimatedDelivery'), href: '/shipping' },
-        { name: t('footer.internationalShipping'), href: '/shipping' }
+        { name: t('footer.shippingDelivery'), href: '/shipping' },
+        { name: t('footer.shippingInfo'), href: '/shipping-info' },
+        { name: t('footer.deliveryOptions'), href: '/delivery-options' },
+        { name: t('footer.shippingCharges'), href: '/shipping-charges' },
+        { name: t('footer.estimatedDelivery'), href: '/estimated-delivery' },
+        { name: t('footer.internationalShipping'), href: '/international-shipping' }
       ]
     },
     {
       title: t('footer.returnsExchanges'),
       links: [
+        { name: t('footer.returnsExchanges'), href: '/returns-exchanges' },
         { name: t('footer.returnPolicy'), href: '/return-policy' },
         { name: t('footer.howToReturn'), href: '/how-to-return' },
         { name: t('footer.refundProcess'), href: '/refund-process' },
@@ -40,6 +43,7 @@ const Footer = () => {
     {
       title: t('footer.company'),
       links: [
+        { name: t('footer.company'), href: '/company' },
         { name: t('footer.aboutUs'), href: '/about' },
         { name: t('footer.careers'), href: '/careers' },
         { name: t('footer.pressMedia'), href: '/press' },
