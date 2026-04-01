@@ -148,7 +148,7 @@ const ProductCard = ({ product, showCompare = true }) => {
 
         <div className="flex items-center justify-between">
           <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-            ${product.price.toFixed(2)}
+            ₹{product.price.toFixed(2)}
           </p>
 
           <Button
