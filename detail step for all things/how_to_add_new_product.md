@@ -30,22 +30,27 @@ public/img/shoes.png
 Step 2: Thunder Client
 POST http://localhost:5000/api/products
 
-Headers:
-Authorization: Bearer <ADMIN_JWT_TOKEN> example token --> eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NDNhZmQ0OWZjNmUzMDk1Y2I0ZWVmNSIsImVtYWlsIjoiYWRtaW5AdGVzdC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NjYzODUzNzEsImV4cCI6MTc2Njk5MDE3MX0.G65ANuVBgZcDSSx2gWP27qybaAstekwDLX-Uf6QgOQA
-
+HTTP Headers
+Accept: */*
+User-Agent: Thunder Client (https://www.thunderclient.com)
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YTcyNzhmYWI0YWQ1YzYyOTM4YTEyZCIsImVtYWlsIjoiYWRtaW5AdGVzdC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzUxMjMyNDEsImV4cCI6MTc3NTcyODA0MX0.3RSjBYilfxFrpypeDoI9GQfwt-aAXJRO-i3wvNtXsfY
+
 
 eg. body:-
 
 inside the Body tag of the thunder client:
 {
-  "name": "Running Shoes",
-  "price": 2499,
-  "category": "Fashion",
-  "description": "Lightweight running shoes",
-  "image": "/img/shoes.png",
+  "name": "suit",
+  "price": 300000,
+  "category": "Men party wear",
+  "description": "great for all kind of the party",
+  "image": "/img/suit.png",
+  "rating": 4.5,
+  "reviews": 200,
   "inStock": true
 }
+
 
 ---
 
@@ -66,13 +71,80 @@ OR update default price range in HomePage.jsx
 
 ### 5. Edit existing product
 
+Step 1: Get product id
+
+GET http://localhost:5000/api/products
+
+Find the product and copy its numeric `id`.
+
+Step 2: Send update request
+
 PUT http://localhost:5000/api/products/:id
+
+Example:
+
+PUT http://localhost:5000/api/products/9
+
+Headers:
+Authorization: Bearer <ADMIN_JWT_TOKEN>
+Content-Type: application/json
+
+Body example (change only fields you want):
+
+{
+  "name": "suit",
+  "price": 300000006500000,
+  "category": "Men party wear",
+  "description": "great for all kind of the party",
+  "image": "/img/suit.png",
+  "rating": 4.5,
+  "reviews": 200,
+  "inStock": true
+}
+
+Expected success response:
+
+{
+  "success": true,
+  "product": { "id": 9, "name": "Running Shoes Pro" }
+}
+
+Important:
+- In your backend route, product lookup is by numeric `id` (not Mongo `_id`).
+- If `id` is wrong, you get `Product not found`.
 
 ---
 
 ### 6. Delete product
 
+Step 1: Get product id
+
+GET http://localhost:5000/api/products
+
+Step 2: Delete by id
+
 DELETE http://localhost:5000/api/products/:id
+
+Example:
+
+DELETE http://localhost:5000/api/products/9
+
+Headers:
+Authorization: Bearer <ADMIN_JWT_TOKEN>
+
+Expected success response:
+
+{
+  "success": true,
+  "message": "Product deleted"
+}
+
+After delete:
+- Product is removed from DB
+- It disappears from frontend product list
+
+Safety tip:
+- First call GET `/api/products/:id` to verify correct product before delete.
 
 ---
 
@@ -88,3 +160,12 @@ DELETE http://localhost:5000/api/products/:id
 They were hidden due to frontend price filter, not backend.
 
 Admin CRUD is working correctly.
+
+---
+
+### 9. Quick API summary (Create / Modify / Remove)
+
+- Create: POST http://localhost:5000/api/products
+- Modify: PUT http://localhost:5000/api/products/:id
+- Remove: DELETE http://localhost:5000/api/products/:id
+- List all: GET http://localhost:5000/api/products

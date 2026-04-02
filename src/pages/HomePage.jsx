@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import HeroSection from '@/components/HeroSection';
@@ -23,6 +23,42 @@ const HomePage = () => {
     color: [],
     availability: 'all'
   });
+
+  const maxProductPrice = useMemo(() => {
+    if (products.length === 0) return 5000;
+
+    const highestPrice = products.reduce((max, product) => {
+      const currentPrice = Number(product.price) || 0;
+      return Math.max(max, currentPrice);
+    }, 0);
+
+    // Round up for a cleaner slider cap and keep a practical minimum.
+    return Math.max(5000, Math.ceil(highestPrice / 500) * 500);
+  }, [products]);
+
+  const previousMaxPriceRef = useRef(5000);
+
+  useEffect(() => {
+    setAdvancedFilters(prev => {
+      const wasUsingPreviousMax = prev.priceRange[1] >= previousMaxPriceRef.current;
+      const nextMax = wasUsingPreviousMax
+        ? maxProductPrice
+        : Math.min(prev.priceRange[1], maxProductPrice);
+
+      const nextMin = Math.min(prev.priceRange[0], nextMax);
+
+      if (nextMin === prev.priceRange[0] && nextMax === prev.priceRange[1]) {
+        return prev;
+      }
+
+      return {
+        ...prev,
+        priceRange: [nextMin, nextMax]
+      };
+    });
+
+    previousMaxPriceRef.current = maxProductPrice;
+  }, [maxProductPrice]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -107,6 +143,7 @@ const HomePage = () => {
               onFilterChange={setAdvancedFilters}
               isOpen={showFilterPanel}
               onToggle={() => setShowFilterPanel(!showFilterPanel)}
+              maxPrice={maxProductPrice}
             />
           </div>
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Filter, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -8,6 +8,7 @@ const FilterPanel = ({
   onFilterChange,
   isOpen,
   onToggle,
+  maxPrice = 5000,
   categories = ['All', 'Electronics', 'Fashion', 'Home', 'Sports', 'Books']
 }) => {
   const { theme } = useTheme();
@@ -15,20 +16,26 @@ const FilterPanel = ({
   const [filters, setFilters] = useState({
     category: 'All',
     brand: 'All',
-    priceRange: [0, 5000],
+    priceRange: [0, maxPrice],
     rating: 'All Ratings',
     size: [],
     color: [],
     availability: 'all'
   });
 
+  const previousMaxPriceRef = useRef(maxPrice);
+
   const brands = ['All', 'Apple', 'Samsung', 'Nike', 'Sony', 'Dell'];
-  const priceRanges = [
-    { label: 'Under ₹500', value: [0, 500] },
-    { label: '₹500-₹1000', value: [500, 1000] },
-    { label: '₹1000-₹5000', value: [1000, 5000] },
-    { label: 'Above ₹5000', value: [5000, 999999] }
-  ];
+  const priceRanges = useMemo(() => {
+    const middleStart = Math.min(1000, maxPrice);
+
+    return [
+      { label: 'Under ₹500', value: [0, Math.min(500, maxPrice)] },
+      { label: '₹500-₹1000', value: [Math.min(500, maxPrice), Math.min(1000, maxPrice)] },
+      { label: `₹${middleStart}-₹${maxPrice}`, value: [middleStart, maxPrice] },
+      { label: `Above ₹${maxPrice}`, value: [maxPrice, Number.MAX_SAFE_INTEGER] }
+    ];
+  }, [maxPrice]);
   const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
   const colors = [
     { name: 'Black', value: '#000000' },
@@ -44,7 +51,29 @@ const FilterPanel = ({
 
   useEffect(() => {
     onFilterChange(filters);
-  }, [filters]);
+  }, [filters, onFilterChange]);
+
+  useEffect(() => {
+    setFilters(prev => {
+      const wasUsingPreviousMax = prev.priceRange[1] >= previousMaxPriceRef.current;
+      const nextMax = wasUsingPreviousMax
+        ? maxPrice
+        : Math.min(prev.priceRange[1], maxPrice);
+
+      const nextMin = Math.min(prev.priceRange[0], nextMax);
+
+      if (nextMin === prev.priceRange[0] && nextMax === prev.priceRange[1]) {
+        return prev;
+      }
+
+      return {
+        ...prev,
+        priceRange: [nextMin, nextMax]
+      };
+    });
+
+    previousMaxPriceRef.current = maxPrice;
+  }, [maxPrice]);
 
   const handleFilterChange = (key, value) => {
     setFilters(prev => ({ ...prev, [key]: value }));
@@ -63,7 +92,7 @@ const FilterPanel = ({
     setFilters({
       category: 'All',
       brand: 'All',
-      priceRange: [0, 5000],
+      priceRange: [0, maxPrice],
       rating: 'All Ratings',
       size: [],
       color: [],
@@ -72,7 +101,7 @@ const FilterPanel = ({
   };
 
   const handlePriceChange = (e) => {
-    const value = parseInt(e.target.value);
+    const value = parseInt(e.target.value, 10);
     handleFilterChange('priceRange', [0, value]);
   };
 
@@ -171,14 +200,14 @@ const FilterPanel = ({
                   <input
                     type="range"
                     min="0"
-                    max="5000"
-                    value={filters.priceRange[1]}
+                    max={maxPrice}
+                    value={Math.min(filters.priceRange[1], maxPrice)}
                     onChange={handlePriceChange}
                     className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600"
                   />
                   <div className="flex justify-between text-xs text-gray-400">
                     <span>0</span>
-                    <span>5000</span>
+                    <span>{maxPrice}</span>
                   </div>
                 </div>
               </div>
