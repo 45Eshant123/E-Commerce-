@@ -194,33 +194,47 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
+      
+      // Validate password strength
       const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
       if (!passwordRegex.test(userData.password)) {
         throw new Error('Password must be at least 8 characters with 1 uppercase, 1 number, and 1 special character');
       }
 
-      const users = JSON.parse(localStorage.getItem('users') || '[]');
-      const existingUser = users.find((u) => u.email === userData.email || u.mobile === userData.mobile);
-      if (existingUser) {
-        if (existingUser.email === userData.email) throw new Error('Email already registered');
-        if (existingUser.mobile === userData.mobile) throw new Error('Mobile number already registered');
+      // Call backend API to initiate signup (sends OTP)
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: userData.fullName,
+          email: userData.email,
+          password: userData.password,
+          phone: userData.mobile,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        // Handle validation errors array from backend
+        let errorMessage = result.message || 'Registration failed';
+        if (result.errors && Array.isArray(result.errors)) {
+          errorMessage = result.errors[0] || errorMessage;
+        }
+        console.error('Registration error response:', result);
+        throw new Error(errorMessage);
       }
 
-      const otp = generateOTP();
-      const pendingUser = {
-        ...userData,
-        id: Date.now().toString(),
-        verified: false,
-        otp,
-        otpExpiry: Date.now() + OTP_EXPIRY,
-        otpAttempts: 0,
-        createdAt: new Date().toISOString(),
-      };
-
-      localStorage.setItem('pending_registration', JSON.stringify(pendingUser));
-      toast({ title: 'Verification Code Sent', description: `A 6-digit code has been sent to ${userData.email}. (Dev: ${otp})` });
-      return { success: true, requiresOTP: true };
+      toast({ 
+        title: 'Verification Code Sent!', 
+        description: `OTP has been sent to ${userData.email}. Please check your inbox.` 
+      });
+      
+      return { success: true, requiresOTP: true, email: userData.email };
     } catch (err) {
+      console.error('Signup error:', err);
       setError(err.message);
       toast({ title: 'Signup Failed', description: err.message, variant: 'destructive' });
       throw err;
@@ -229,88 +243,125 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const verifySignupOTP = async (otp) => {
+  const verifySignupOTP = async (email, otp) => {
     try {
-      const pendingUser = JSON.parse(localStorage.getItem('pending_registration'));
-      if (!pendingUser) throw new Error('No pending registration found');
-      if (Date.now() > pendingUser.otpExpiry) throw new Error('OTP has expired. Please request a new one.');
-      if (pendingUser.otpAttempts >= 3) throw new Error('Maximum OTP attempts exceeded. Please signup again.');
+      setLoading(true);
+      setError(null);
 
-      if (pendingUser.otp !== otp) {
-        pendingUser.otpAttempts += 1;
-        localStorage.setItem('pending_registration', JSON.stringify(pendingUser));
-        throw new Error(`Invalid OTP. ${3 - pendingUser.otpAttempts} attempts remaining.`);
+      if (!otp || otp.length !== 6) {
+        throw new Error('Please enter a valid 6-digit OTP');
       }
 
-      const users = JSON.parse(localStorage.getItem('users') || '[]');
-      const newUser = {
-        id: pendingUser.id,
-        fullName: pendingUser.fullName,
-        email: pendingUser.email,
-        mobile: pendingUser.mobile,
-        password: pendingUser.password,
-        verified: true,
-        createdAt: pendingUser.createdAt,
-      };
+      // Call backend to verify OTP
+      const response = await fetch('http://localhost:5000/api/auth/verify-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          otp,
+        }),
+      });
 
-      users.push(newUser);
-      localStorage.setItem('users', JSON.stringify(users));
-      localStorage.removeItem('pending_registration');
-      persistSession({ user: newUser, lastActivity: Date.now(), createdAt: Date.now() });
-      toast({ title: 'Account Created!', description: 'Welcome! Your account has been successfully created.' });
-      return { success: true };
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'OTP verification failed');
+      }
+
+      // Store user session and token from backend response
+      persistSession({ 
+        user: result.user, 
+        token: result.token,
+        lastActivity: Date.now(), 
+        createdAt: Date.now() 
+      });
+
+      toast({ 
+        title: 'Account Created!', 
+        description: 'Welcome! Your account has been successfully created.' 
+      });
+      
+      return { success: true, user: result.user };
     } catch (err) {
+      console.error('OTP verification error:', err);
+      setError(err.message);
       toast({ title: 'Verification Failed', description: err.message, variant: 'destructive' });
       throw err;
+    } finally {
+      setLoading(false);
     }
   };
 
-  const resendSignupOTP = async () => {
+  const resendSignupOTP = async (email) => {
     try {
-      const pendingUser = JSON.parse(localStorage.getItem('pending_registration'));
-      if (!pendingUser) throw new Error('No pending registration found');
+      setLoading(true);
+      setError(null);
 
-      const lastResend = pendingUser.lastOTPResend || 0;
-      if (Date.now() - lastResend < OTP_RESEND_COOLDOWN) {
-        const remainingSeconds = Math.ceil((OTP_RESEND_COOLDOWN - (Date.now() - lastResend)) / 1000);
-        throw new Error(`Please wait ${remainingSeconds} seconds before requesting a new code`);
+      const response = await fetch('http://localhost:5000/api/auth/resend-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'Failed to resend OTP');
       }
 
-      const otp = generateOTP();
-      pendingUser.otp = otp;
-      pendingUser.otpExpiry = Date.now() + OTP_EXPIRY;
-      pendingUser.otpAttempts = 0;
-      pendingUser.lastOTPResend = Date.now();
-      localStorage.setItem('pending_registration', JSON.stringify(pendingUser));
-      toast({ title: 'New Code Sent', description: `A new verification code has been sent. (Dev: ${otp})` });
+      toast({ 
+        title: 'OTP Resent', 
+        description: 'A new OTP has been sent to your email.' 
+      });
+
       return { success: true };
     } catch (err) {
+      console.error('Resend OTP error:', err);
+      setError(err.message);
       toast({ title: 'Failed to Resend', description: err.message, variant: 'destructive' });
       throw err;
+    } finally {
+      setLoading(false);
     }
   };
 
   const loginWithOTP = async (email) => {
     try {
       setLoading(true);
-      const otpRequests = JSON.parse(localStorage.getItem('otp_requests') || '{}');
-      const userRequests = otpRequests[email] || [];
-      const recentRequests = userRequests.filter((timestamp) => Date.now() - timestamp < 3600000);
-      if (recentRequests.length >= 5) throw new Error('Too many OTP requests. Please try again later.');
+      setError(null);
 
-      const users = JSON.parse(localStorage.getItem('users') || '[]');
-      const foundUser = users.find((u) => u.email === email);
-      if (!foundUser) throw new Error('No account found with this email');
+      if (!email) {
+        throw new Error('Email is required');
+      }
 
-      const otp = generateOTP();
-      localStorage.setItem('passwordless_otp', JSON.stringify({ email, otp, expiry: Date.now() + OTP_EXPIRY, attempts: 0 }));
-      recentRequests.push(Date.now());
-      otpRequests[email] = recentRequests;
-      localStorage.setItem('otp_requests', JSON.stringify(otpRequests));
+      // Call backend API to request OTP for login
+      const response = await fetch('http://localhost:5000/api/auth/request-login-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
 
-      toast({ title: 'OTP Sent', description: `A login code has been sent to ${email}. (Dev: ${otp})` });
-      return { success: true };
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'Failed to send OTP');
+      }
+
+      toast({
+        title: 'OTP Sent!',
+        description: `A login code has been sent to ${email}`
+      });
+
+      return { success: true, requiresOTP: true };
     } catch (err) {
+      console.error('Login OTP error:', err);
+      setError(err.message);
       toast({ title: 'Failed to Send OTP', description: err.message, variant: 'destructive' });
       throw err;
     } finally {
@@ -320,26 +371,87 @@ export const AuthProvider = ({ children }) => {
 
   const verifyPasswordlessOTP = async (email, otp) => {
     try {
-      const otpData = JSON.parse(localStorage.getItem('passwordless_otp'));
-      if (!otpData || otpData.email !== email) throw new Error('No OTP request found');
-      if (Date.now() > otpData.expiry) throw new Error('OTP has expired');
-      if (otpData.attempts >= 3) throw new Error('Maximum attempts exceeded');
+      setLoading(true);
+      setError(null);
 
-      if (otpData.otp !== otp) {
-        otpData.attempts += 1;
-        localStorage.setItem('passwordless_otp', JSON.stringify(otpData));
-        throw new Error(`Invalid OTP. ${3 - otpData.attempts} attempts remaining.`);
+      if (!otp || otp.length !== 6) {
+        throw new Error('Please enter a valid 6-digit OTP');
       }
 
-      const users = JSON.parse(localStorage.getItem('users') || '[]');
-      const foundUser = users.find((u) => u.email === email);
-      persistSession({ user: foundUser, lastActivity: Date.now(), createdAt: Date.now() });
-      localStorage.removeItem('passwordless_otp');
-      toast({ title: 'Login Successful', description: `Welcome back, ${normalizeUser(foundUser).fullName}!` });
-      return { success: true };
+      // Call backend to verify login OTP
+      const response = await fetch('http://localhost:5000/api/auth/verify-login-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          otp,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'OTP verification failed');
+      }
+
+      // Store user session and token from backend response
+      persistSession({
+        user: result.user,
+        token: result.token,
+        lastActivity: Date.now(),
+        createdAt: Date.now()
+      });
+
+      toast({
+        title: 'Login Successful',
+        description: `Welcome back, ${normalizeUser(result.user).fullName}!`
+      });
+
+      return { success: true, user: result.user };
     } catch (err) {
+      console.error('OTP verification error:', err);
+      setError(err.message);
       toast({ title: 'Verification Failed', description: err.message, variant: 'destructive' });
       throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const resendPasswordlessOTP = async (email) => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await fetch('http://localhost:5000/api/auth/resend-login-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'Failed to resend OTP');
+      }
+
+      toast({
+        title: 'OTP Resent',
+        description: 'A new login code has been sent to your email'
+      });
+
+      return { success: true };
+    } catch (err) {
+      console.error('Resend OTP error:', err);
+      setError(err.message);
+      toast({ title: 'Failed to Resend', description: err.message, variant: 'destructive' });
+      throw err;
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -425,6 +537,7 @@ export const AuthProvider = ({ children }) => {
     resendSignupOTP,
     loginWithOTP,
     verifyPasswordlessOTP,
+    resendPasswordlessOTP,
     forgotPassword,
     resetPassword,
     logout,

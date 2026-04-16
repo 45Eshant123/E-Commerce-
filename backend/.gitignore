@@ -1,7 +1,51 @@
+# Dependencies
 node_modules/
+
+# Build outputs
+dist/
+build/
+coverage/
+.nyc_output/
+test-results/
+
+# Tooling caches
+.cache/
+.npm/
+.pnpm-store/
+
+# Environment and secrets
 .env
 .env.*
 !.env.example
+
+# Logs
 *.log
-coverage/
-.nyc_output/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.pid
+*.pid.lock
+*.seed
+*.out
+*.err
+*.stackdump
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local overrides
+*.local
+
+# Backend temp/runtime folders
+uploads/
+tmp/

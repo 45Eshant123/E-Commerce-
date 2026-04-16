@@ -70,28 +70,60 @@ const HomePage = () => {
             </Helmet>
 
             <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
-                {/* Hero Section */}
+                {/* ─── Hero Section ─────────────────────────────────────────── */}
                 <section
-                    className="relative h-screen flex items-center justify-center overflow-hidden"
-                    style={{
-                        backgroundImage: 'url(https://images.unsplash.com/photo-1674027392842-29f8354e236c)',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center'
-                    }}
+                    className="relative flex items-center justify-center overflow-hidden"
+                    style={{ height: '100vh' }}
                 >
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-900/80 to-pink-900/80"></div>
-                    <div className="relative z-10 container mx-auto px-4 text-center">
+                    {/* 1. Video — sits at the very back (z-0) */}
+                    <video
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="auto"
+                        poster="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1600&h=900&fit=crop"
+                        style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            zIndex: 0,
+                        }}
+                    >
+                        <source src="/img/clothing.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+
+                    <div
+                        style={{
+                            position: 'absolute',
+                            inset: 0,
+                            backgroundColor: 'rgba(0, 0, 0, 0.55)',
+                            zIndex: 1,
+                        }}
+                    />
+
+                    {/* 3. Content — sits above everything (z-10) */}
+                    <div
+                        className="container mx-auto px-4 text-center"
+                        style={{ position: 'relative', zIndex: 10 }}
+                    >
                         <motion.div
                             initial={{ opacity: 0, y: 50 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8 }}
                         >
-                            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
                                 Welcome to ShopHub
                             </h2>
-                            <p className="text-xl md:text-2xl text-gray-700 mb-8 max-w-2xl mx-auto">
-                                Discover premium products curated just for you. Quality, style, and convenience in one place.
+                            <p className="text-xl md:text-2xl text-white italic mb-8 max-w-2xl mx-auto">
+                                Discover premium products curated just for you. Quality, style,
+                                and convenience in one place.
                             </p>
+
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                 {isAuthenticated ? (
                                     <Link to="/cart">
@@ -119,7 +151,7 @@ const HomePage = () => {
                                             <motion.button
                                                 whileHover={{ scale: 1.05 }}
                                                 whileTap={{ scale: 0.95 }}
-                                                className="px-8 py-4 bg-transparent border-2 border-black-600 text-gray-900 rounded-lg font-semibold text-lg hover:bg-gray-900 hover:text-white transition-all duration-300 ease-in-out"
+                                                className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-lg font-semibold text-lg hover:bg-white hover:text-purple-600 transition-all duration-300 ease-in-out"
                                             >
                                                 Sign In
                                             </motion.button>
@@ -129,9 +161,7 @@ const HomePage = () => {
                             </div>
                         </motion.div>
                     </div>
-                </section>
-
-                {/* Features Section */}
+                </section>               {/* Features Section */}
                 <section className="py-20 container mx-auto px-4">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -139,10 +169,10 @@ const HomePage = () => {
                         viewport={{ once: true }}
                         className="text-center mb-16"
                     >
-                        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-6">
                             Why Choose ShopHub?
                         </h2>
-                        <p className="text-xl text-gray-600">
+                        <p className="text-xl text-gray-600 mb-4">
                             We're committed to providing the best shopping experience
                         </p>
                     </motion.div>
@@ -181,10 +211,10 @@ const HomePage = () => {
                             viewport={{ once: true }}
                             className="text-center mb-16"
                         >
-                            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 mt-4">
                                 Featured Products
                             </h2>
-                            <p className="text-xl text-gray-600">
+                            <p className="text-xl text-gray-600 mb-4 ">
                                 Handpicked items just for you
                             </p>
                         </motion.div>
@@ -242,13 +272,13 @@ const HomePage = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                             >
-                                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 pt-4">
                                     Ready to Start Shopping?
                                 </h2>
                                 <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
                                     Join thousands of satisfied customers and discover amazing deals today!
                                 </p>
-                                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                <div className="flex flex-col sm:flex-row gap-4 justify-center pb-6">
                                     <Link to="/signup">
                                         <motion.button
                                             whileHover={{ scale: 1.05 }}

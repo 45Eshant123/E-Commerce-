@@ -12,12 +12,21 @@ const userSchema = new mongoose.Schema(
       trim: true
     },
     password: { type: String, required: true, minlength: 6 },
+    phone: { type: String, default: '' },
+    address: {
+      street: { type: String },
+      city: { type: String },
+      state: { type: String },
+      zipCode: { type: String },
+      country: { type: String }
+    },
     role: {
       type: String,
       enum: ['user', 'admin'],
       default: 'user'
     },
-    isActive: { type: Boolean, default: true }
+    isActive: { type: Boolean, default: true },
+    isEmailVerified: { type: Boolean, default: false }
   },
   { timestamps: true }
 );

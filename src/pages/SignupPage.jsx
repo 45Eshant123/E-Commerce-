@@ -100,6 +100,34 @@ const SignupPage = () => {
         }
     };
 
+    const handleVerifyOTP = async () => {
+        setOtpError('');
+
+        if (otp.length !== 6) {
+            setOtpError('Please enter all 6 digits');
+            return;
+        }
+
+        try {
+            await verifySignupOTP(formData.email, otp);
+            setShowOTPModal(false);
+            navigate('/');
+        } catch (error) {
+            setOtpError(error.message);
+        }
+    };
+
+    const handleResendOTP = async () => {
+        try {
+            await resendSignupOTP(formData.email);
+            setOtp('');
+            setOtpError('');
+            startResendCooldown();
+        } catch (error) {
+            setOtpError(error.message);
+        }
+    };;
+
     const startResendCooldown = () => {
         setResendCooldown(60);
         const interval = setInterval(() => {
@@ -111,34 +139,6 @@ const SignupPage = () => {
                 return prev - 1;
             });
         }, 1000);
-    };
-
-    const handleVerifyOTP = async () => {
-        setOtpError('');
-
-        if (otp.length !== 6) {
-            setOtpError('Please enter all 6 digits');
-            return;
-        }
-
-        try {
-            await verifySignupOTP(otp);
-            setShowOTPModal(false);
-            navigate('/');
-        } catch (error) {
-            setOtpError(error.message);
-        }
-    };
-
-    const handleResendOTP = async () => {
-        try {
-            await resendSignupOTP();
-            setOtp('');
-            setOtpError('');
-            startResendCooldown();
-        } catch (error) {
-            setOtpError(error.message);
-        }
     };
 
     return (

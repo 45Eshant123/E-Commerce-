@@ -14,10 +14,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // MongoDB Connection
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/ecommerce';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/';
+
+console.log('Connecting to MongoDB:', MONGODB_URI);
 
 mongoose.connect(MONGODB_URI)
-  .then(() => console.log('MongoDB connected successfully'))
+  .then(() => {
+    console.log('MongoDB connected successfully');
+    console.log('Database:', mongoose.connection.db.databaseName);
+  })
   .catch(err => {
     console.error('MongoDB connection error:', err);
     process.exit(1);

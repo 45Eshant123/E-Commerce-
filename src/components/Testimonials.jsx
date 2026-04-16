@@ -5,27 +5,27 @@ import { Star, Quote } from 'lucide-react';
 const testimonials = [
   {
     id: 1,
-    name: "Sarah Johnson",
-    avatar: "SJ",
+    name: "Prateek Srivastava",
+    avatar: "PS",
     rating: 5,
     text: "Amazing quality products and lightning-fast delivery. ShopHub has become my go-to for all my shopping needs!",
-    location: "New York, NY"
+    location: "Saket Nagar, Deoria, uttar pradesh"
   },
   {
     id: 2,
-    name: "Mike Chen",
-    avatar: "MC",
+    name: "Eshant Verma",
+    avatar: "EV",
     rating: 5,
     text: "The customer service is outstanding. They helped me find exactly what I was looking for. Highly recommended!",
-    location: "Los Angeles, CA"
+    location: "chinhat, lucknow, uttar pradesh"
   },
   {
     id: 3,
-    name: "Emily Davis",
-    avatar: "ED",
+    name: "Sumant",
+    avatar: "SU",
     rating: 5,
     text: "Love the variety and the prices are unbeatable. The website is so easy to navigate too!",
-    location: "Chicago, IL"
+    location: "Bihar"
   }
 ];
 

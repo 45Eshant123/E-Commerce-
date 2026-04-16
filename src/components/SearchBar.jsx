@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { products } from '@/data/products';
+import { products as localProducts } from '@/data/products';
 import Fuse from 'fuse.js';
 
 const SearchBar = () => {
@@ -12,16 +12,63 @@ const SearchBar = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
+  const [products, setProducts] = useState(localProducts);
   const navigate = useNavigate();
 
-  const fuse = new Fuse(products, {
-    keys: ['name', 'description', 'category'],
-    threshold: 0.3,
-  });
+  useEffect(() => {
+    let isActive = true;
+
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/api/products');
+        const data = await res.json();
+
+        if (isActive && data?.success && Array.isArray(data.products)) {
+          const mergedProducts = [...data.products, ...localProducts].reduce(
+            (accumulator, product) => {
+              if (!product?.id || accumulator.some(item => item.id === product.id)) {
+                return accumulator;
+              }
+
+              accumulator.push(product);
+              return accumulator;
+            },
+            []
+          );
+
+          setProducts(mergedProducts);
+          return;
+        }
+      } catch (error) {
+        console.error('Failed to load products for search:', error);
+      }
+
+      if (isActive) {
+        setProducts(localProducts);
+      }
+    };
+
+    fetchProducts();
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
+
+  const fuse = useMemo(() => {
+    return new Fuse(products, {
+      keys: ['name', 'description', 'category', 'features'],
+      threshold: 0.35,
+      ignoreLocation: true,
+      minMatchCharLength: 1,
+    });
+  }, [products]);
 
   useEffect(() => {
-    if (query.length > 2) {
-      const searchResults = fuse.search(query).map(result => result.item);
+    const normalizedQuery = query.trim();
+
+    if (normalizedQuery.length > 0) {
+      const searchResults = fuse.search(normalizedQuery).map(result => result.item);
       setResults(searchResults.slice(0, 5));
       setShowResults(true);
     } else {

@@ -1,39 +1,39 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { motion } from 'framer-motion';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '@/context/AuthContext';
 import FormInput from '@/components/FormInput';
-import FormCheckbox from '@/components/FormCheckbox';
 import FormButton from '@/components/FormButton';
+import OTPInput from '@/components/OTPInput';
 import ReCaptchaWrapper from '@/components/ReCaptchaWrapper';
+import { X } from 'lucide-react';
 
-const LoginPage = () => {
+const SignupPage = () => {
     const [formData, setFormData] = useState({
+        fullName: '',
         email: '',
+        mobile: '',
         password: '',
-        rememberMe: false,
+        confirmPassword: '',
         honeypot: ''
     });
     const [errors, setErrors] = useState({});
     const [recaptchaToken, setRecaptchaToken] = useState(null);
+    const [showOTPModal, setShowOTPModal] = useState(false);
+    const [otp, setOtp] = useState('');
+    const [otpError, setOtpError] = useState('');
+    const [resendCooldown, setResendCooldown] = useState(0);
 
-    const { login, loading } = useAuth();
+    const { signUp, verifySignupOTP, resendSignupOTP, loading } = useAuth();
     const navigate = useNavigate();
-    const location = useLocation();
-
-    const from = location.state?.from || '/';
-
-    const handleChange = (e) => {
-        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-        setFormData({ ...formData, [e.target.name]: value });
-        if (errors[e.target.name]) {
-            setErrors({ ...errors, [e.target.name]: '' });
-        }
-    };
 
     const validateForm = () => {
         const newErrors = {};
+
+        if (!formData.fullName.trim()) {
+            newErrors.fullName = 'Full name is required';
+        }
 
         if (!formData.email.trim()) {
             newErrors.email = 'Email is required';
@@ -41,8 +41,20 @@ const LoginPage = () => {
             newErrors.email = 'Invalid email format';
         }
 
+        if (!formData.mobile.trim()) {
+            newErrors.mobile = 'Mobile number is required';
+        } else if (!/^\+?[\d\s-]{10,}$/.test(formData.mobile)) {
+            newErrors.mobile = 'Invalid mobile number';
+        }
+
         if (!formData.password) {
             newErrors.password = 'Password is required';
+        } else if (!/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(formData.password)) {
+            newErrors.password = 'Password must be 8+ characters with 1 uppercase, 1 number, 1 special character';
+        }
+
+        if (formData.password !== formData.confirmPassword) {
+            newErrors.confirmPassword = 'Passwords do not match';
         }
 
         if (!recaptchaToken) {
@@ -51,6 +63,13 @@ const LoginPage = () => {
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
+    };
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+        if (errors[e.target.name]) {
+            setErrors({ ...errors, [e.target.name]: '' });
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -65,24 +84,74 @@ const LoginPage = () => {
         }
 
         try {
-            await login(formData.email, formData.password, formData.rememberMe);
-            navigate(from, { replace: true });
+            const result = await signUp({
+                fullName: formData.fullName,
+                email: formData.email,
+                mobile: formData.mobile,
+                password: formData.password
+            });
+
+            if (result.requiresOTP) {
+                setShowOTPModal(true);
+                startResendCooldown();
+            }
         } catch (error) {
-            console.error('Login error:', error);
+            console.error('Signup error:', error);
         }
+    };
+
+    const handleVerifyOTP = async () => {
+        setOtpError('');
+
+        if (otp.length !== 6) {
+            setOtpError('Please enter all 6 digits');
+            return;
+        }
+
+        try {
+            await verifySignupOTP(formData.email, otp);
+            setShowOTPModal(false);
+            navigate('/');
+        } catch (error) {
+            setOtpError(error.message);
+        }
+    };
+
+    const handleResendOTP = async () => {
+        try {
+            await resendSignupOTP(formData.email);
+            setOtp('');
+            setOtpError('');
+            startResendCooldown();
+        } catch (error) {
+            setOtpError(error.message);
+        }
+    };;
+
+    const startResendCooldown = () => {
+        setResendCooldown(60);
+        const interval = setInterval(() => {
+            setResendCooldown((prev) => {
+                if (prev <= 1) {
+                    clearInterval(interval);
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
     };
 
     return (
         <>
             <Helmet>
-                <title>Login - ShopHub</title>
-                <meta name="description" content="Login to your ShopHub account to access your cart, wishlist, and orders." />
+                <title>Sign Up - ShopHub</title>
+                <meta name="description" content="Create your ShopHub account and start shopping today. Quick and secure registration." />
             </Helmet>
 
             <div
                 className="min-h-screen flex items-center justify-center p-4"
                 style={{
-                    backgroundImage: 'url(https://images.unsplash.com/photo-1699736059098-ffea3debef5a)',
+                    backgroundImage: 'url(https://images.unsplash.com/photo-1693045181224-9fc2f954f054)',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                 }}
@@ -94,10 +163,21 @@ const LoginPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     className="relative w-full max-w-md bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl p-8"
                 >
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2 text-center">Welcome Back</h1>
-                    <p className="text-gray-600 mb-6 text-center">Login to your account</p>
+                    <h1 className="text-3xl font-bold text-gray-900 mb-2 text-center">Create Account</h1>
+                    <p className="text-gray-600 mb-6 text-center">Join ShopHub today</p>
 
                     <form onSubmit={handleSubmit} className="space-y-4">
+                        <FormInput
+                            label="Full Name"
+                            type="text"
+                            name="fullName"
+                            value={formData.fullName}
+                            onChange={handleChange}
+                            error={errors.fullName}
+                            required
+                            placeholder="Name"
+                        />
+
                         <FormInput
                             label="Email"
                             type="email"
@@ -106,7 +186,18 @@ const LoginPage = () => {
                             onChange={handleChange}
                             error={errors.email}
                             required
-                            placeholder="john@example.com"
+                            placeholder="xyz@example.com"
+                        />
+
+                        <FormInput
+                            label="Mobile Number"
+                            type="tel"
+                            name="mobile"
+                            value={formData.mobile}
+                            onChange={handleChange}
+                            error={errors.mobile}
+                            required
+                            placeholder="+91 987654....."
                         />
 
                         <FormInput
@@ -120,22 +211,17 @@ const LoginPage = () => {
                             placeholder="••••••••"
                         />
 
-                        <div className="flex items-center justify-between">
-                            <FormCheckbox
-                                label="Remember me"
-                                name="rememberMe"
-                                checked={formData.rememberMe}
-                                onChange={handleChange}
-                            />
-                            <Link
-                                to="/forgot-password"
-                                className="text-sm text-purple-600 font-semibold hover:text-purple-700"
-                            >
-                                Forgot Password?
-                            </Link>
-                        </div>
+                        <FormInput
+                            label="Confirm Password"
+                            type="password"
+                            name="confirmPassword"
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                            error={errors.confirmPassword}
+                            required
+                            placeholder="••••••••"
+                        />
 
-                        {/* Honeypot field */}
                         <input
                             type="text"
                             name="honeypot"
@@ -152,29 +238,88 @@ const LoginPage = () => {
                         )}
 
                         <FormButton type="submit" loading={loading}>
-                            Login
+                            Sign Up
                         </FormButton>
                     </form>
 
-                    <div className="mt-6 text-center">
-                        <Link
-                            to="/passwordless-login"
-                            className="text-purple-600 font-semibold hover:text-purple-700"
-                        >
-                            Login with OTP instead
-                        </Link>
-                    </div>
-
                     <p className="mt-6 text-center text-gray-600">
-                        Don't have an account?{' '}
-                        <Link to="/signup" className="text-purple-600 font-semibold hover:text-purple-700">
-                            Sign Up
+                        Already have an account?{' '}
+                        <Link to="/login" className="text-purple-600 font-semibold hover:text-purple-700">
+                            Login
                         </Link>
                     </p>
                 </motion.div>
+
+                <AnimatePresence>
+                    {showOTPModal && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
+                            onClick={() => setShowOTPModal(false)}
+                        >
+                            <motion.div
+                                initial={{ scale: 0.9, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                exit={{ scale: 0.9, opacity: 0 }}
+                                onClick={(e) => e.stopPropagation()}
+                                className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full"
+                            >
+                                <div className="flex justify-between items-center mb-6">
+                                    <h2 className="text-2xl font-bold text-gray-900">Verify Email</h2>
+                                    <button
+                                        onClick={() => setShowOTPModal(false)}
+                                        className="text-gray-400 hover:text-gray-600"
+                                    >
+                                        <X size={24} />
+                                    </button>
+                                </div>
+
+                                <p className="text-gray-600 mb-6 text-center">
+                                    Enter the 6-digit code sent to {formData.email}
+                                </p>
+
+                                <OTPInput
+                                    length={6}
+                                    value={otp}
+                                    onChange={setOtp}
+                                    error={otpError}
+                                />
+
+                                <FormButton
+                                    onClick={handleVerifyOTP}
+                                    loading={loading}
+                                    className="mt-6"
+                                >
+                                    Verify Code
+                                </FormButton>
+
+                                <div className="mt-4 text-center">
+                                    {resendCooldown > 0 ? (
+                                        <p className="text-gray-500">
+                                            Resend code in {resendCooldown}s
+                                        </p>
+                                    ) : (
+                                        <button
+                                            onClick={handleResendOTP}
+                                            className="text-purple-600 font-semibold hover:text-purple-700"
+                                        >
+                                            Resend Code
+                                        </button>
+                                    )}
+                                </div>
+
+                                <p className="mt-4 text-sm text-gray-500 text-center">
+                                    Code expires in 5 minutes
+                                </p>
+                            </motion.div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </>
     );
 };
 
-export default LoginPage;
+export default SignupPage;
