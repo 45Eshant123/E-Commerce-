@@ -1,15 +1,29 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { CheckCircle, Package, Truck, Home, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import confetti from 'canvas-confetti';
 
 const OrderSuccessPage = () => {
-  const navigate = useNavigate();
   const location = useLocation();
-  const customerInfo = location.state?.formData || {};
+  const orderFromState = location.state?.orderDetails;
+  const orderFromStorage = (() => {
+    try {
+      const raw = localStorage.getItem('lastOrderDetails');
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  })();
+
+  const orderDetails = orderFromState || orderFromStorage;
+  const placedAt = orderDetails?.placedAt ? new Date(orderDetails.placedAt) : new Date();
+  const displayName = orderDetails?.customerName || 'Customer';
+  const displayAddress = orderDetails?.shippingAddress?.address || 'Address not available';
+  const displayCity = orderDetails?.shippingAddress?.city || '';
+  const displayZip = orderDetails?.shippingAddress?.zipCode || '';
 
   useEffect(() => {
     // Trigger confetti animation
@@ -117,13 +131,13 @@ const OrderSuccessPage = () => {
               <div className="grid md:grid-cols-2 gap-6 text-left">
                 <div>
                   <h3 className="font-medium text-gray-900 dark:text-white mb-2">Order Information</h3>
-                  <p className="text-gray-600 dark:text-gray-400"><strong>Order ID:</strong> #ORD-{Date.now()}</p>
-                  <p className="text-gray-600 dark:text-gray-400"><strong>Date:</strong> {new Date().toLocaleDateString()}</p>
-                  <p className="text-gray-600 dark:text-gray-400"><strong>Status:</strong> <span className="text-green-600 font-medium">Confirmed</span></p>
+                  <p className="text-gray-600 dark:text-gray-400"><strong>Order ID:</strong> #{orderDetails?.orderId || `ORD-${Date.now()}`}</p>
+                  <p className="text-gray-600 dark:text-gray-400"><strong>Date & Time:</strong> {placedAt.toLocaleString()}</p>
+                  <p className="text-gray-600 dark:text-gray-400"><strong>Status:</strong> <span className="text-green-600 font-medium">{orderDetails?.status || 'Confirmed'}</span></p>
                 </div>
                 <div>
                   <h3 className="font-medium text-gray-900 dark:text-white mb-2">Shipping Address</h3>
-                  <p className="text-gray-600 dark:text-gray-400">John Doe<br />123 Main St<br />New York, NY 10001</p>
+                  <p className="text-gray-600 dark:text-gray-400">{displayName}<br />{displayAddress}<br />{displayCity}{displayCity && displayZip ? ', ' : ''}{displayZip}</p>
                 </div>
               </div>
             </div>
@@ -181,7 +195,7 @@ const OrderSuccessPage = () => {
             className="text-center"
           >
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Link to="/profile">
+              <Link to="/track-order" state={{ orderDetails }}>
                 <Button size="lg" variant="outline" className="gap-2">
                   <Package className="w-5 h-5" />
                   Track Order

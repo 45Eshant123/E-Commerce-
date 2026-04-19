@@ -275,7 +275,7 @@ const HomePage = () => {
                                 <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 pt-4">
                                     Ready to Start Shopping?
                                 </h2>
-                                <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+                                <p className="text-xl text-white italic font-semibold mb-8 max-w-2xl mx-auto">
                                     Join thousands of satisfied customers and discover amazing deals today!
                                 </p>
                                 <div className="flex flex-col sm:flex-row gap-4 justify-center pb-6">

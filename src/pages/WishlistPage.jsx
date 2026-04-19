@@ -202,7 +202,7 @@ const WishlistProductCard = ({ product, index, onRemove, onAddToCart, onTogglePr
               className="text-2xl font-bold"
               style={{ color: currentTheme.priceAccent }}
             >
-              ${product.price.toFixed(2)}
+              ₹{product.price.toFixed(2)}
             </span>
             {product.originalPrice && (
               <span

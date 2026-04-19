@@ -137,6 +137,10 @@ const AppShell = () => {
           <Route path="/press" element={<PressMediaPage />} />
           <Route path="/sustainability" element={<SustainabilityPage />} />
           <Route path="/customer-service" element={<CustomerServicePage />} />
+          <Route path="/customer-service/contact-us" element={<ContactUsPage />} />
+          <Route path="/customer-service/order-tracking" element={<OrderTrackingPage />} />
+          <Route path="/customer-service/help-center" element={<HelpCenterPage />} />
+          <Route path="/customer-service/report-issue" element={<ReportIssuePage />} />
           <Route path="/help" element={<HelpCenterPage />} />
           <Route path="/shipping" element={<ShippingDeliveryPage />} />
           <Route path="/shipping-info" element={<ShippingDeliveryPage />} />

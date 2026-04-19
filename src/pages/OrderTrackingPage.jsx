@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ChevronRight, Search, Truck, Package, CheckCircle, Clock, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 const OrderTrackingPage = () => {
+  const location = useLocation();
   const [orderId, setOrderId] = useState('');
   const [email, setEmail] = useState('');
   const [trackingResult, setTrackingResult] = useState(null);
+
+  const orderFromState = location.state?.orderDetails;
+  const orderFromStorage = useMemo(() => {
+    try {
+      const raw = localStorage.getItem('lastOrderDetails');
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  }, []);
+
+  const latestOrder = orderFromState || orderFromStorage;
 
   const mockTrackingData = {
     orderId: 'SH-123456789',
@@ -65,8 +78,107 @@ const OrderTrackingPage = () => {
     trackingNumber: '9405511899223345'
   };
 
+  const parseSafeDate = (value) => {
+    const parsed = value ? new Date(value) : new Date();
+    return Number.isNaN(parsed.getTime()) ? new Date() : parsed;
+  };
+
+  const buildTrackingFromOrder = (order) => {
+    try {
+      const placedAt = parseSafeDate(order?.placedAt);
+      const now = new Date();
+      const oneHourMs = 60 * 60 * 1000;
+      const oneDayMs = 24 * oneHourMs;
+
+      const formatDate = (date) => parseSafeDate(date).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      });
+
+      const formatTime = (date) => parseSafeDate(date).toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+      });
+
+      const steps = [
+        {
+          status: 'Order Placed',
+          at: placedAt,
+          description: 'Your order has been confirmed and payment processed.',
+        },
+        {
+          status: 'Order Processed',
+          at: new Date(placedAt.getTime() + 4 * oneHourMs),
+          description: 'Your order is being prepared for shipment.',
+        },
+        {
+          status: 'Shipped',
+          at: new Date(placedAt.getTime() + 1 * oneDayMs),
+          description: 'Your order has been shipped and is on its way.',
+        },
+        {
+          status: 'In Transit',
+          at: new Date(placedAt.getTime() + 2 * oneDayMs),
+          description: 'Your package is in transit to the delivery address.',
+        },
+        {
+          status: 'Out for Delivery',
+          at: new Date(placedAt.getTime() + 4 * oneDayMs),
+          description: 'Your package will be delivered today.',
+        },
+        {
+          status: 'Delivered',
+          at: new Date(placedAt.getTime() + 5 * oneDayMs),
+          description: 'Package delivered successfully.',
+        },
+      ].map((step) => {
+        const completed = now >= step.at;
+
+        return {
+          status: step.status,
+          date: formatDate(step.at),
+          time: completed ? formatTime(step.at) : 'Expected',
+          completed,
+          description: step.description,
+        };
+      });
+
+      const currentStep = [...steps].reverse().find((step) => step.completed) || steps[0];
+
+      const shippingAddress = `${order?.shippingAddress?.address || ''}${order?.shippingAddress?.city ? `, ${order.shippingAddress.city}` : ''}${order?.shippingAddress?.zipCode ? ` ${order.shippingAddress.zipCode}` : ''}`.trim() || 'Address not available';
+
+      return {
+        orderId: order?.orderId || `ORD-${Date.now()}`,
+        status: currentStep.status,
+        estimatedDelivery: formatDate(steps[5].at),
+        trackingSteps: steps,
+        shippingAddress,
+        carrier: 'FedEx',
+        trackingNumber: '9405511899223345',
+      };
+    } catch {
+      return mockTrackingData;
+    }
+  };
+
+  useEffect(() => {
+    if (!latestOrder) {
+      return;
+    }
+
+    setOrderId(latestOrder.orderId || '');
+    setEmail(latestOrder.email || '');
+    setTrackingResult(buildTrackingFromOrder(latestOrder));
+  }, [latestOrder]);
+
   const handleTrackOrder = (e) => {
     e.preventDefault();
+    if (latestOrder && orderId === latestOrder.orderId && email.toLowerCase() === (latestOrder.email || '').toLowerCase()) {
+      setTrackingResult(buildTrackingFromOrder(latestOrder));
+      return;
+    }
+
     // Mock tracking - in real app, this would call an API
     if (orderId && email) {
       setTrackingResult(mockTrackingData);

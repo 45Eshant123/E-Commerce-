@@ -1,178 +1,314 @@
-# 🛒 E-Commerce Website (Resume Project)
+# E-Commerce Website (Resume Project)
 
-Full-stack MERN-style e-commerce project for portfolio/resume use.
+Portfolio-grade full-stack e-commerce project built with React + Vite on the frontend and Express + MongoDB on the backend.
 
-> ⚠️ This project contains demo/testing payment flows and helper scripts for local development. Do not use as-is in production.
-
-## Overview
-
-This repository includes:
-- A React + Vite frontend in `src/`
-- An Express + MongoDB backend in `backend/`
-- Admin/testing helper scripts in `backend/*.js`
-- Additional historical/alternate frontend folders (`login_folder/`, `login_folder-1/`)
-
-The app supports product browsing, authentication, role-based admin operations, recommendations, orders, and Stripe-based/payment-mock flows.
+This repository includes authentication, role-based admin operations, product browsing, cart and checkout flows, recommendations, and payment integration patterns.
 
 ## Tech Stack
 
-### Frontend
+Frontend:
 - React 18
 - Vite
 - Tailwind CSS
 - React Router
 - Context API
-- i18next (EN/ES/HI)
-- Stripe React SDK (client integration)
+- i18next (en/es/hi)
+- Stripe React SDK
 
-### Backend
-- Node.js + Express 5
+Backend:
+- Node.js
+- Express 5
 - MongoDB + Mongoose
 - JWT authentication
 - bcrypt password hashing
 - Stripe Node SDK
-- dotenv, cors
+- Helmet, CORS, dotenv, express-rate-limit
 
----
+## Repository Layout
 
-## Quick Start
+```text
+.
+|-- .gitignore
+|-- index.html
+|-- package-lock.json
+|-- package.json
+|-- postcss.config.js
+|-- README.md
+|-- requirement.txt
+|-- requirements.txt
+|-- tailwind.config.js
+|-- vite.config.js
+|-- backend/
+|   |-- .env
+|   |-- .gitignore
+|   |-- package-lock.json
+|   |-- package.json
+|   |-- server.js
+|   |-- middleware/
+|   |   |-- auth.js
+|   |   `-- authz.js
+|   |-- models/
+|   |   |-- Order.js
+|   |   |-- Product.js
+|   |   `-- User.js
+|   |-- routes/
+|   |   |-- auth.js
+|   |   |-- orders.js
+|   |   |-- payments.js
+|   |   |-- products.js
+|   |   |-- recommendations.js
+|   |   `-- users.js
+|   `-- utils/
+|       `-- emailService.js
+|-- detail step for all things/
+|   |-- admin_operations.md
+|   |-- how_to_add_new_product.md
+|   |-- how_to_create_token.md
+|   `-- README.md
+|-- dist/
+|   |-- index.html
+|   |-- assets/
+|   |   |-- index-BBrx2IUm.js
+|   |   `-- index-CEBF89bO.css
+|   `-- img/
+|       |-- bag.png
+|       |-- bottle.png
+|       |-- dining.png
+|       |-- headphone.png
+|       |-- image.png
+|       |-- lamp.png
+|       |-- shoes.png
+|       |-- speaker.png
+|       |-- tshirt.png
+|       |-- tv.png
+|       |-- watch.png
+|       `-- wireless.png
+|-- login_folder-1/
+|   |-- index.html
+|   |-- package-lock.json
+|   |-- package.json
+|   |-- postcss.config.js
+|   |-- tailwind.config.js
+|   `-- src/
+|       |-- App.jsx
+|       |-- index.css
+|       |-- main.jsx
+|       |-- components/
+|       |   |-- CallToAction.jsx
+|       |   |-- FormButton.jsx
+|       |   |-- FormCheckbox.jsx
+|       |   |-- FormInput.jsx
+|       |   |-- Header.jsx
+|       |   |-- HeroImage.jsx
+|       |   |-- OTPInput.jsx
+|       |   |-- ProtectedRoute.jsx
+|       |   |-- ReCaptchaWrapper.jsx
+|       |   |-- ScrollToTop.jsx
+|       |   |-- WelcomeMessage.jsx
+|       |   `-- ui/
+|       |       |-- button.jsx
+|       |       |-- toast.jsx
+|       |       |-- toaster.jsx
+|       |       `-- use-toast.js
+|       |-- contexts/
+|       |   `-- AuthContext.jsx
+|       |-- lib/
+|       |   `-- utils.js
+|       `-- pages/
+|           |-- CartPage.jsx
+|           |-- CheckoutPage.jsx
+|           |-- ForgotPasswordPage.jsx
+|           |-- HomePage.jsx
+|           |-- LoginPage.jsx
+|           |-- OrderHistoryPage.jsx
+|           |-- PasswordlessOTPLoginPage.jsx
+|           |-- ResetPasswordPage.jsx
+|           |-- SignupPage.jsx
+|           `-- WishlistPage.jsx
+|-- public/
+|   `-- img/
+|       |-- bag.png
+|       |-- bottle.png
+|       |-- clothing.mp4
+|       |-- dining.png
+|       |-- headphone.png
+|       |-- image.png
+|       |-- lamp.png
+|       |-- shoes.png
+|       |-- speaker.png
+|       |-- suit.png
+|       |-- tshirt.png
+|       |-- tv.png
+|       |-- watch.png
+|       `-- wireless.png
+`-- src/
+	|-- App.jsx
+	|-- index.css
+	|-- main.jsx
+	|-- components/
+	|   |-- CallToAction.jsx
+	|   |-- CategoryProductGrid.jsx
+	|   |-- FilterPanel.jsx
+	|   |-- FloatingCartButton.jsx
+	|   |-- Footer.jsx
+	|   |-- FormButton.jsx
+	|   |-- FormCheckbox.jsx
+	|   |-- FormInput.jsx
+	|   |-- GlobalSelector.jsx
+	|   |-- Header.jsx
+	|   |-- HeroImage.jsx
+	|   |-- HeroSection.jsx
+	|   |-- OTPInput.jsx
+	|   |-- PaymentForm.jsx
+	|   |-- ProductCard.jsx
+	|   |-- ProductFilters.jsx
+	|   |-- ProtectedRoute.jsx
+	|   |-- ReCaptchaWrapper.jsx
+	|   |-- Recommendations.jsx
+	|   |-- ScrollToTop.jsx
+	|   |-- SearchBar.jsx
+	|   |-- SkeletonLoader.jsx
+	|   |-- Testimonials.jsx
+	|   |-- WelcomeMessage.jsx
+	|   `-- ui/
+	|       |-- button.jsx
+	|       |-- card.jsx
+	|       |-- input.jsx
+	|       |-- label.jsx
+	|       |-- price-filter.jsx
+	|       |-- select.jsx
+	|       |-- textarea.jsx
+	|       |-- toast.jsx
+	|       |-- toaster.jsx
+	|       `-- use-toast.jsx
+	|-- context/
+	|   |-- AuthContext.jsx
+	|   |-- CartContext.jsx
+	|   |-- LocalizationContext.jsx
+	|   |-- ThemeContext.jsx
+	|   `-- WishlistContext.jsx
+	|-- contexts/
+	|   `-- AuthContext.jsx
+	|-- data/
+	|   `-- products.js
+	|-- lib/
+	|   |-- currency.js
+	|   |-- i18n.js
+	|   |-- localization-reference.js
+	|   `-- utils.js
+	|-- locales/
+	|   |-- en.json
+	|   |-- es.json
+	|   `-- hi.json
+	`-- pages/
+		|-- AboutUsPage.jsx
+		|-- AccountSettingsPage.jsx
+		|-- AdminDashboardPage.jsx
+		|-- AdminLoginPage.jsx
+		|-- CareersPage.jsx
+		|-- CartPage.jsx
+		|-- CheckoutConfirmationPage.jsx
+		|-- CheckoutPage.jsx
+		|-- CompanyPage.jsx
+		|-- ComparePage.jsx
+		|-- ContactUsPage.jsx
+		|-- CookiePolicyPage.jsx
+		|-- CustomerServicePage.jsx
+		|-- ExchangePolicyPage.jsx
+		|-- FAQPage.jsx
+		|-- ForgotPasswordPage.jsx
+		|-- HelpCenterPage.jsx
+		|-- HomePage.jsx
+		|-- HowToReturnPage.jsx
+		|-- LoginPage.jsx
+		|-- OrderFailurePage.jsx
+		|-- OrderSuccessPage.jsx
+		|-- OrderTrackingPage.jsx
+		|-- PasswordlessOTPLoginPage.jsx
+		|-- PaymentFailedPage.jsx
+		|-- PaymentSuccessPage.jsx
+		|-- PressMediaPage.jsx
+		|-- PrivacyPolicyPage.jsx
+		|-- ProductPage.jsx
+		|-- ProfilePage.jsx
+		|-- RefundProcessPage.jsx
+		|-- RegisterPage.jsx
+		|-- ReportIssuePage.jsx
+		|-- ResetPasswordPage.jsx
+		|-- ReturnPolicyPage.jsx
+		|-- ReturnsExchangesPage.jsx
+		|-- ShippingDeliveryPage.jsx
+		|-- SignupPage.jsx
+		|-- SustainabilityPage.jsx
+		|-- TermsConditionsPage.jsx
+		`-- WishlistPage.jsx
+```
 
-### 1) Install dependencies
+## Prerequisites
+
+- Node.js 18+ (recommended)
+- npm 9+
+- MongoDB instance (local or cloud)
+- Stripe test keys (optional, for payment endpoints)
+
+## Setup
+
+1. Install frontend dependencies:
 
 ```bash
-# root (frontend)
 npm install
+```
 
-# backend
+2. Install backend dependencies:
+
+```bash
 cd backend
 npm install
 ```
 
-### 2) Configure environment (`backend/.env`)
+3. Create backend environment file at `backend/.env`:
 
 ```env
 PORT=5000
 NODE_ENV=development
 MONGODB_URI=mongodb://localhost:27017/ecommerce
-JWT_SECRET=your_jwt_secret
+JWT_SECRET=replace_with_a_strong_secret
 STRIPE_SECRET_KEY=sk_test_xxx
 STRIPE_WEBHOOK_SECRET=whsec_xxx
 ```
 
-### 3) Run backend
+4. Start backend server:
 
 ```bash
 cd backend
 npm run dev
 ```
 
-### 4) Run frontend
+5. Start frontend dev server (new terminal, project root):
 
 ```bash
-# from project root
 npm run dev
 ```
 
-- Frontend: `http://localhost:3000`
-- Backend: `http://localhost:5000`
-- Health check: `GET /api/health`
+Default URLs:
+- Frontend: http://localhost:3000
+- Backend: http://localhost:5000
+- Health endpoint: GET /api/health
 
----
+## Available Scripts
 
-## Project Structure (Current)
+Root (`package.json`):
+- `npm run dev` - Start Vite dev server on port 3000
+- `npm run build` - Build frontend for production
+- `npm run preview` - Preview production build
 
-```text
-.
-├── backend/
-│   ├── .env
-│   ├── middleware/
-│   │   ├── auth.js
-│   │   └── authz.js
-│   ├── models/
-│   │   ├── User.js
-│   │   ├── Product.js
-│   │   └── Order.js
-│   ├── routes/
-│   │   ├── auth.js
-│   │   ├── users.js
-│   │   ├── products.js
-│   │   ├── orders.js
-│   │   ├── payments.js
-│   │   └── recommendations.js
-│   ├── create-admin.js
-│   ├── create-user.js
-│   ├── create-double-hashed-user.js
-│   ├── clear-users.js
-│   ├── seed.js
-│   ├── test-admin-operations.js
-│   ├── test-rbac.js
-│   ├── val
-│   └── server.js
-├── dist/
-├── src/
-│   ├── components/
-│   ├── context/
-│   ├── contexts/
-│   ├── data/
-│   ├── lib/
-│   ├── locales/
-│   ├── pages/
-│   ├── App.jsx
-│   └── main.jsx
-├── public/
-├── detail step for all things/
-├── login_folder/
-├── login_folder-1/
-├── package.json
-└── README.md
-```
+Backend (`backend/package.json`):
+- `npm run dev` - Start API with nodemon
+- `npm start` - Start API with node
 
----
+## API Groups
 
-## Data Models (Backend)
-
-### 1) User (`backend/models/User.js`)
-- `name` (String, required)
-- `email` (String, required, unique, lowercase)
-- `password` (String, required, min 6)
-- `role` (Enum: `user | admin`, default `user`)
-- `isActive` (Boolean, default `true`)
-- timestamps enabled
-
-Behavior:
-- `pre('save')` hashes password with bcrypt (12 rounds)
-- `comparePassword()` method for login comparison
-
-### 2) Product (`backend/models/Product.js`)
-- Numeric `id` (required, unique)
-- `name`, `price`, `category`, `description`, `image`
-- `rating`, `reviews`, `inStock`, `features[]`
-- `embedding[]` for similarity recommendations
-- `createdAt`, `updatedAt`
-
-Behavior:
-- text index on `name` and `description`
-- `updatedAt` refresh on save
-
-### 3) Order (`backend/models/Order.js`)
-- `orderId` (required, unique)
-- `userId` (String, required)
-- `customerInfo`, `items[]`, `paymentInfo`, `shipping`
-- `orderStatus`, `totalAmount`
-- `createdAt`, `updatedAt`
-
-Behavior:
-- static `generateOrderId()` helper
-- `updatedAt` refresh on save
-
-> Note: Some route handlers currently use fields like `user` and `status` when creating/updating orders, while the schema defines `userId` and `orderStatus`. Keep this in mind if extending order APIs.
-
----
-
-## How APIs Work
-
-The backend mounts routes in `backend/server.js` under `/api/*`:
-
+Routes are mounted under `/api` in `backend/server.js`:
 - `/api/auth`
 - `/api/users`
 - `/api/products`
@@ -180,135 +316,40 @@ The backend mounts routes in `backend/server.js` under `/api/*`:
 - `/api/payments`
 - `/api/recommendations`
 
-### Authentication & RBAC flow
+Auth and RBAC behavior:
+- JWT-based authentication via `Authorization: Bearer <token>`
+- Protected routes use `backend/middleware/auth.js`
+- Admin-only routes use authorization middleware in `backend/middleware/authz.js`
 
-1. Client logs in via `POST /api/auth/login`
-2. Server returns JWT containing user identity and role
-3. Protected routes use `auth` middleware:
-   - Reads `Authorization: Bearer <token>`
-   - Verifies token
-   - Loads current user from DB
-4. Admin-only routes add `authorize('admin')`
+## Utility Scripts (Backend)
 
-If role is not allowed, API returns `403`.
+The backend includes helper scripts for local testing and demo data:
+- `create-admin.js`
+- `create-user.js`
+- `create-double-hashed-user.js`
+- `clear-users.js`
+- `seed.js`
+- `test-rbac.js`
+- `test-admin-operations.js`
 
-### Implemented Endpoints
+Run any script from `backend/`, for example:
 
-#### Auth (`backend/routes/auth.js`)
-- `POST /api/auth/register`
-- `POST /api/auth/login`
-
-#### Users (`backend/routes/users.js`) — admin only
-- `GET /api/users`
-- `DELETE /api/users/:id`
-- `PUT /api/users/:id/role`
-
-#### Products (`backend/routes/products.js`)
-- `GET /api/products`
-- `GET /api/products/:id`
-- `POST /api/products` (admin)
-- `PUT /api/products/:id` (admin)
-- `DELETE /api/products/:id` (admin)
-
-#### Orders (`backend/routes/orders.js`)
-- `POST /api/orders` (authenticated user)
-- `GET /api/orders` (admin)
-- `PUT /api/orders/:id/status` (admin)
-
-#### Payments (`backend/routes/payments.js`)
-- `POST /api/payments/create-payment-intent`
-- `POST /api/payments/confirm-payment`
-- `POST /api/payments/webhook`
-- `POST /api/payments/mock-payment` (development only)
-- `POST /api/payments/mock-payment-fail` (development only)
-
-#### Recommendations (`backend/routes/recommendations.js`)
-- `GET /api/recommendations/:id`
-- `POST /api/recommendations/seed-embeddings`
-
----
-
-## Why Admin Files Exist (and How to Use Them)
-
-The `backend` folder contains utility scripts to speed up local testing and admin demos.
-
-### `create-admin.js`
-Purpose:
-- Creates an admin account for dashboard/API testing.
-
-Run:
-```bash
-cd backend
-node create-admin.js
-```
-
-### `create-user.js`
-Purpose:
-- Creates a sample user with predefined credentials.
-
-Run:
-```bash
-cd backend
-node create-user.js
-```
-
-### `create-double-hashed-user.js`
-Purpose:
-- Reproduces a double-hash password scenario for debugging auth issues.
-
-Run:
-```bash
-cd backend
-node create-double-hashed-user.js
-```
-
-### `clear-users.js`
-Purpose:
-- Deletes all user records (useful reset during auth testing).
-
-Run:
-```bash
-cd backend
-node clear-users.js
-```
-
-### `seed.js`
-Purpose:
-- Seeds sample users/products and product embeddings.
-
-Run:
 ```bash
 cd backend
 node seed.js
 ```
 
-### `test-rbac.js` and `test-admin-operations.js`
-Purpose:
-- Demonstration/testing scripts for token roles and admin workflows.
+Warning: some scripts create, modify, or delete database data. Use only in development.
 
-Run:
-```bash
-cd backend
-node test-rbac.js
-node test-admin-operations.js
-```
+## Additional Documentation
 
-> ⚠️ Important: These scripts may modify or delete data. Use only in local/dev databases.
-
----
-
-## Detailed Docs
-
-Additional step-by-step docs are in:
+See the step-by-step notes in:
 - `detail step for all things/README.md`
 - `detail step for all things/admin_operations.md`
 - `detail step for all things/how_to_add_new_product.md`
 - `detail step for all things/how_to_create_token.md`
 
----
-
 ## Notes
 
-- Frontend API calls are currently hardcoded to `http://localhost:5000` in multiple files.
-- Keep backend running on port `5000` unless you also update frontend API URLs.
-- This README was updated to match current files and route/model implementations.
+- Keep backend on port 5000 unless frontend API base URLs are updated.
+- This project is intended for learning, demos, and resume/portfolio presentation.

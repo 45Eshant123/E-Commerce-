@@ -104,8 +104,28 @@ const CheckoutPage = () => {
                     amount={getCartTotal()}
                     cartItems={cart}
                     onSuccess={() => {
+                      const placedAt = new Date().toISOString();
+                      const orderDetails = {
+                        orderId: `ORD-${Date.now()}`,
+                        placedAt,
+                        email: formData.email,
+                        customerName: `${formData.firstName} ${formData.lastName}`.trim(),
+                        shippingAddress: {
+                          address: formData.address,
+                          city: formData.city,
+                          zipCode: formData.zipCode,
+                        },
+                        status: 'Confirmed',
+                      };
+
+                      localStorage.setItem('lastOrderDetails', JSON.stringify(orderDetails));
                       clearCart();
-                      navigate('/order-success');
+                      navigate('/order-success', {
+                        state: {
+                          formData,
+                          orderDetails,
+                        },
+                      });
                     }}
                     onError={() => {
                       toast({
